@@ -1,0 +1,115 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    name: Build Plugin Package
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer
+
+      - name: Validate plugin header
+        run: |
+          if ! grep -q "Plugin Name:" meta-description-handler.php; then
+            echo "Error: Plugin header not found"
+            exit 1
+          fi
+          echo "Plugin header validated successfully"
+
+      - name: Get version from tag
+        id: get_version
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/v}
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+          echo "Building version: $VERSION"
+
+      - name: Update version in plugin file
+        run: |
+          VERSION=${{ steps.get_version.outputs.VERSION }}
+          sed -i "s/Version: .*/Version: $VERSION/" meta-description-handler.php
+          sed -i "s/define('MDH_VERSION', '.*')/define('MDH_VERSION', '$VERSION')/" meta-description-handler.php
+
+      - name: Create plugin directory
+        run: |
+          mkdir -p build/meta-description-handler
+          
+          # Copy plugin files
+          cp -r meta-description-handler.php build/meta-description-handler/
+          cp -r uninstall.php build/meta-description-handler/
+          cp -r README.md build/meta-description-handler/
+          cp -r includes build/meta-description-handler/
+          cp -r assets build/meta-description-handler/
+          cp -r languages build/meta-description-handler/
+
+      - name: Create ZIP archive
+        run: |
+          cd build
+          zip -r meta-description-handler-${{ steps.get_version.outputs.VERSION }}.zip meta-description-handler
+          mv meta-description-handler-${{ steps.get_version.outputs.VERSION }}.zip ../
+
+      - name: Generate changelog from commits
+        id: changelog
+        run: |
+          # Get commits since last tag
+          PREVIOUS_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+          
+          if [ -z "$PREVIOUS_TAG" ]; then
+            COMMITS=$(git log --pretty=format:"- %s" --no-merges)
+          else
+            COMMITS=$(git log --pretty=format:"- %s" --no-merges ${PREVIOUS_TAG}..HEAD)
+          fi
+          
+          # Save to file for multi-line output
+          echo "$COMMITS" > changelog.txt
+          
+          echo "Generated changelog:"
+          cat changelog.txt
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Meta Description Handler v${{ steps.get_version.outputs.VERSION }}
+          body_path: changelog.txt
+          draft: false
+          prerelease: ${{ contains(github.ref, '-beta') || contains(github.ref, '-alpha') || contains(github.ref, '-rc') }}
+          files: |
+            meta-description-handler-${{ steps.get_version.outputs.VERSION }}.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: meta-description-handler-${{ steps.get_version.outputs.VERSION }}
+          path: meta-description-handler-${{ steps.get_version.outputs.VERSION }}.zip
+          retention-days: 30
+
+  # Optional: Validate PHP syntax
+  validate:
+    name: Validate PHP
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: Check PHP syntax
+        run: |
+          find . -name "*.php" -not -path "./vendor/*" | xargs -I {} php -l {}

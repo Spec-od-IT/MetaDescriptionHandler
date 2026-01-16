@@ -1,0 +1,324 @@
+# Meta Description Handler POT File
+# Copyright (C) 2024
+# This file is distributed under the GPL v2 or later.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Meta Description Handler 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-01 00:00+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: meta-description-handler.php
+msgid "Meta Description Handler"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Meta Handler"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "General Settings"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Post Types"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Taxonomies"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Archives"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Special Pages"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "General"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Homepage"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Title Formats"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Title Separator"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Character(s) used to separate parts of the title."
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Enabled Post Types"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Select which post types should have meta fields enabled."
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Enabled Taxonomies"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Select which taxonomies should have meta fields enabled."
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Homepage Title"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Leave empty to use the default site title."
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Homepage Description"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Leave empty to use the site tagline."
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "characters"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Available placeholders:"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Post Title Format"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Page Title Format"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Archive Title Format"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Taxonomy Title Format"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Search Results Title Format"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "404 Page Title"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "404 Page Description"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Settings"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Default Title Format"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Default Description"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Available:"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Archive Page Settings"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Archive Title"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Archive Description"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Date Archives"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Author Archives"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Date Archive Settings"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Yearly Archives"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Monthly Archives"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Daily Archives"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Title Format"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Description"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Author Archive Settings"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Description Format"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Search Results"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "404 Page"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Search Results Page"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "404 Error Page"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Title"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Saving..."
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Settings saved!"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Error saving settings."
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Optimal length (30-60 characters)"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Too short (under 30 characters)"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Too long (over 60 characters)"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Optimal length (70-160 characters)"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Too short (under 70 characters)"
+msgstr ""
+
+#: includes/class-mdh-admin.php
+msgid "Too long (over 160 characters)"
+msgstr ""
+
+#: includes/class-mdh-post-meta.php
+msgid "Meta Title & Description"
+msgstr ""
+
+#: includes/class-mdh-post-meta.php
+msgid "Search Engine Preview"
+msgstr ""
+
+#: includes/class-mdh-post-meta.php
+msgid "Meta Title"
+msgstr ""
+
+#: includes/class-mdh-post-meta.php
+msgid "Leave empty to use the post title with the default format."
+msgstr ""
+
+#: includes/class-mdh-post-meta.php
+msgid "Meta Description"
+msgstr ""
+
+#: includes/class-mdh-post-meta.php
+msgid "Enter a compelling description..."
+msgstr ""
+
+#: includes/class-mdh-post-meta.php
+msgid "Leave empty to auto-generate from content excerpt."
+msgstr ""
+
+#: includes/class-mdh-post-meta.php
+msgid "Search Engine Visibility"
+msgstr ""
+
+#: includes/class-mdh-post-meta.php
+msgid "No Index"
+msgstr ""
+
+#: includes/class-mdh-post-meta.php
+msgid "(Discourage search engines from indexing this page)"
+msgstr ""
+
+#: includes/class-mdh-post-meta.php
+msgid "No Follow"
+msgstr ""
+
+#: includes/class-mdh-post-meta.php
+msgid "(Discourage search engines from following links on this page)"
+msgstr ""
+
+#: includes/class-mdh-taxonomy-meta.php
+msgid "Custom meta title for this term. Leave empty to use term name."
+msgstr ""
+
+#: includes/class-mdh-taxonomy-meta.php
+msgid "Custom meta description for this term archive."
+msgstr ""
+
+#: includes/class-mdh-taxonomy-meta.php
+msgid "No Index - Discourage search engines from indexing this term archive"
+msgstr ""
+
+#: includes/class-mdh-taxonomy-meta.php
+msgid "Search Preview"
+msgstr ""
+
+#: includes/class-mdh-frontend.php
+msgid "Page %d"
+msgstr ""

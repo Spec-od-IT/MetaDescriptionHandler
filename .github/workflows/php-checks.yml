@@ -1,0 +1,99 @@
+name: PHP Checks
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  syntax-check:
+    name: PHP Syntax Check
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        php-version: ['7.2', '7.4', '8.0', '8.1', '8.2']
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP ${{ matrix.php-version }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+
+      - name: Check PHP syntax
+        run: |
+          echo "Checking PHP syntax for PHP ${{ matrix.php-version }}"
+          find . -name "*.php" -not -path "./vendor/*" | xargs -I {} php -l {}
+
+  coding-standards:
+    name: WordPress Coding Standards
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: cs2pr, phpcs
+
+      - name: Install WordPress Coding Standards
+        run: |
+          composer global config allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
+          composer global require --dev wp-coding-standards/wpcs:"^3.0"
+          phpcs --config-set installed_paths $(composer global config home)/vendor/wp-coding-standards/wpcs
+
+      - name: Run PHPCS
+        continue-on-error: true
+        run: |
+          phpcs --standard=WordPress --extensions=php \
+            --ignore=vendor/*,node_modules/* \
+            --report=checkstyle \
+            . | cs2pr
+
+  security-check:
+    name: Security Check
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: Check for common security issues
+        run: |
+          echo "Checking for potential security issues..."
+          
+          # Check for direct file access without ABSPATH check
+          echo "Checking ABSPATH guards..."
+          for file in $(find . -name "*.php" -not -path "./vendor/*"); do
+            if ! grep -q "ABSPATH" "$file" && ! grep -q "WP_UNINSTALL_PLUGIN" "$file"; then
+              if [ "$(basename $file)" != "meta-description-handler.php" ]; then
+                echo "Warning: $file may be missing ABSPATH check"
+              fi
+            fi
+          done
+          
+          # Check for eval() usage
+          echo "Checking for eval() usage..."
+          if grep -r "eval(" --include="*.php" . ; then
+            echo "Warning: eval() found - review for security"
+          fi
+          
+          # Check for base64_decode usage
+          echo "Checking for base64_decode() usage..."
+          if grep -r "base64_decode(" --include="*.php" . ; then
+            echo "Warning: base64_decode() found - review for security"
+          fi
+          
+          echo "Security check completed"

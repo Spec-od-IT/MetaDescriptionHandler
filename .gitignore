@@ -1,0 +1,43 @@
+# IDE
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Dependencies
+/vendor/
+/node_modules/
+
+# Build
+/build/
+*.zip
+
+# Logs
+*.log
+debug.log
+
+# Local config
+wp-config.php
+.env
+.env.local
+
+# Composer
+composer.lock
+
+# PHPUnit
+.phpunit.result.cache
+phpunit.xml
+
+# Coverage
+/coverage/
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*~
