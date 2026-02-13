@@ -393,7 +393,8 @@ class MDH_Frontend {
      */
     private function get_current_url() {
         global $wp;
-        return home_url(add_query_arg(array(), $wp->request));
+        $url = home_url(add_query_arg(array(), $wp->request));
+        return trailingslashit($url);
     }
     
     /**
