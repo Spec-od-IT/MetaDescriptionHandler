@@ -8,12 +8,17 @@ if (!defined('ABSPATH')) {
 }
 
 class MDH_Helpers {
-    
+
+    private static $settings_cache = null;
+
     /**
      * Get plugin settings
      */
     public static function get_settings() {
-        return get_option('mdh_settings', array());
+        if (null === self::$settings_cache) {
+            self::$settings_cache = get_option('mdh_settings', array());
+        }
+        return self::$settings_cache;
     }
     
     /**
@@ -28,6 +33,7 @@ class MDH_Helpers {
      * Update settings
      */
     public static function update_settings($settings) {
+        self::$settings_cache = $settings;
         return update_option('mdh_settings', $settings);
     }
     
@@ -86,14 +92,17 @@ class MDH_Helpers {
         $text = wp_strip_all_tags($text);
         $text = preg_replace('/\s+/', ' ', $text);
         $text = trim($text);
-        
-        if (strlen($text) <= $length) {
+
+        if (mb_strlen($text, 'UTF-8') <= $length) {
             return $text;
         }
-        
-        $text = substr($text, 0, $length - strlen($append));
-        $text = substr($text, 0, strrpos($text, ' '));
-        
+
+        $text = mb_substr($text, 0, $length - mb_strlen($append, 'UTF-8'), 'UTF-8');
+        $last_space = mb_strrpos($text, ' ', 0, 'UTF-8');
+        if ($last_space !== false) {
+            $text = mb_substr($text, 0, $last_space, 'UTF-8');
+        }
+
         return $text . $append;
     }
     
@@ -120,6 +129,64 @@ class MDH_Helpers {
         ), 'objects');
     }
     
+    /**
+     * Detect active SEO plugins that may conflict with MDH
+     *
+     * Uses constants and classes instead of is_plugin_active() to work on frontend.
+     *
+     * @return array Array of detected plugin names (empty if none found)
+     */
+    public static function detect_seo_conflicts() {
+        $conflicts = array();
+
+        // Yoast SEO
+        if ( defined( 'WPSEO_VERSION' ) || class_exists( 'WPSEO_Options' ) ) {
+            $conflicts[] = 'Yoast SEO';
+        }
+
+        // Rank Math
+        if ( defined( 'RANK_MATH_VERSION' ) || class_exists( 'RankMath' ) ) {
+            $conflicts[] = 'Rank Math';
+        }
+
+        // All in One SEO Pack
+        if ( defined( 'AIOSEO_VERSION' ) || function_exists( 'aioseo' ) ) {
+            $conflicts[] = 'All in One SEO';
+        }
+
+        // SEOPress
+        if ( defined( 'SEOPRESS_VERSION' ) ) {
+            $conflicts[] = 'SEOPress';
+        }
+
+        // The SEO Framework
+        if ( defined( 'THE_SEO_FRAMEWORK_VERSION' ) || function_exists( 'the_seo_framework' ) ) {
+            $conflicts[] = 'The SEO Framework';
+        }
+
+        // Squirrly SEO
+        if ( defined( 'SQ_VERSION' ) ) {
+            $conflicts[] = 'Squirrly SEO';
+        }
+
+        return $conflicts;
+    }
+
+    /**
+     * Check if frontend output should be disabled due to SEO plugin conflicts
+     *
+     * @return bool True if frontend output should be disabled
+     */
+    public static function is_frontend_disabled() {
+        $conflicts = self::detect_seo_conflicts();
+
+        if ( empty( $conflicts ) ) {
+            return false;
+        }
+
+        return ! self::get_setting( 'force_frontend_output', false );
+    }
+
     /**
      * Sanitize meta title
      */

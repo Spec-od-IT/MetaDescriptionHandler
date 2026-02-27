@@ -53,28 +53,28 @@ class MDH_Taxonomy_Meta {
         wp_nonce_field('mdh_save_term_meta', 'mdh_term_meta_nonce');
         ?>
         <div class="form-field mdh-term-field">
-            <label for="mdh_term_meta_title">Meta Tytuł</label>
+            <label for="mdh_term_meta_title"><?php esc_html_e('Meta Tytuł', 'meta-description-handler'); ?></label>
             <input type="text" name="mdh_term_meta_title" id="mdh_term_meta_title" class="mdh-title-input" value="">
-            <p class="description">Własny meta tytuł dla tego terminu. Pozostaw puste, aby użyć nazwy terminu.</p>
+            <p class="description"><?php esc_html_e('Własny meta tytuł dla tego terminu. Pozostaw puste, aby użyć nazwy terminu.', 'meta-description-handler'); ?></p>
             <div class="mdh-char-counter" data-type="title">
                 <span class="mdh-char-count">0</span>/580px
             </div>
         </div>
-        
+
         <div class="form-field mdh-term-field">
-            <label for="mdh_term_meta_description">Meta Opis</label>
+            <label for="mdh_term_meta_description"><?php esc_html_e('Meta Opis', 'meta-description-handler'); ?></label>
             <textarea name="mdh_term_meta_description" id="mdh_term_meta_description" rows="3" class="mdh-description-input"></textarea>
-            <p class="description">Własny meta opis dla archiwum tego terminu.</p>
+            <p class="description"><?php esc_html_e('Własny meta opis dla archiwum tego terminu.', 'meta-description-handler'); ?></p>
             <div class="mdh-char-counter" data-type="description">
                 <span class="mdh-char-count">0</span>/920px
             </div>
         </div>
-        
+
         <div class="form-field mdh-term-field">
-            <label>Widoczność w wyszukiwarkach</label>
+            <label><?php esc_html_e('Widoczność w wyszukiwarkach', 'meta-description-handler'); ?></label>
             <label>
                 <input type="checkbox" name="mdh_term_robots_noindex" value="1">
-                Nie indeksuj - Zniechęć wyszukiwarki do indeksowania archiwum tego terminu
+                <?php esc_html_e('Nie indeksuj - Zniechęć wyszukiwarki do indeksowania archiwum tego terminu', 'meta-description-handler'); ?>
             </label>
         </div>
         <?php
@@ -92,45 +92,45 @@ class MDH_Taxonomy_Meta {
         ?>
         <tr class="form-field mdh-term-field-row">
             <th scope="row">
-                <label for="mdh_term_meta_title">Meta Tytuł</label>
+                <label for="mdh_term_meta_title"><?php esc_html_e('Meta Tytuł', 'meta-description-handler'); ?></label>
             </th>
             <td>
-                <input type="text" name="mdh_term_meta_title" id="mdh_term_meta_title" 
+                <input type="text" name="mdh_term_meta_title" id="mdh_term_meta_title"
                        class="mdh-title-input" value="<?php echo esc_attr($meta_title); ?>">
-                <p class="description">Własny meta tytuł dla tego terminu. Pozostaw puste, aby użyć nazwy terminu.</p>
+                <p class="description"><?php esc_html_e('Własny meta tytuł dla tego terminu. Pozostaw puste, aby użyć nazwy terminu.', 'meta-description-handler'); ?></p>
                 <div class="mdh-char-counter" data-type="title">
                     <span class="mdh-char-count">0</span>/580px
                 </div>
             </td>
         </tr>
-        
+
         <tr class="form-field mdh-term-field-row">
             <th scope="row">
-                <label for="mdh_term_meta_description">Meta Opis</label>
+                <label for="mdh_term_meta_description"><?php esc_html_e('Meta Opis', 'meta-description-handler'); ?></label>
             </th>
             <td>
-                <textarea name="mdh_term_meta_description" id="mdh_term_meta_description" 
+                <textarea name="mdh_term_meta_description" id="mdh_term_meta_description"
                           rows="3" class="large-text mdh-description-input"><?php echo esc_textarea($meta_description); ?></textarea>
-                <p class="description">Własny meta opis dla archiwum tego terminu.</p>
+                <p class="description"><?php esc_html_e('Własny meta opis dla archiwum tego terminu.', 'meta-description-handler'); ?></p>
                 <div class="mdh-char-counter" data-type="description">
                     <span class="mdh-char-count">0</span>/920px
                 </div>
             </td>
         </tr>
-        
+
         <tr class="form-field mdh-term-field-row">
-            <th scope="row">Widoczność w wyszukiwarkach</th>
+            <th scope="row"><?php esc_html_e('Widoczność w wyszukiwarkach', 'meta-description-handler'); ?></th>
             <td>
                 <label>
                     <input type="checkbox" name="mdh_term_robots_noindex" value="1" <?php checked($robots_noindex, '1'); ?>>
-                    Nie indeksuj - Zniechęć wyszukiwarki do indeksowania archiwum tego terminu
+                    <?php esc_html_e('Nie indeksuj - Zniechęć wyszukiwarki do indeksowania archiwum tego terminu', 'meta-description-handler'); ?>
                 </label>
             </td>
         </tr>
-        
+
         <!-- SERP Preview -->
         <tr class="form-field mdh-term-field-row">
-            <th scope="row">Podgląd w wyszukiwarce</th>
+            <th scope="row"><?php esc_html_e('Podgląd w wyszukiwarce', 'meta-description-handler'); ?></th>
             <td>
                 <div class="mdh-serp-preview">
                     <div class="mdh-serp-title" id="mdh-preview-title">
@@ -162,13 +162,13 @@ class MDH_Taxonomy_Meta {
         
         // Save meta title
         if (isset($_POST['mdh_term_meta_title'])) {
-            $meta_title = MDH_Helpers::sanitize_title($_POST['mdh_term_meta_title']);
+            $meta_title = MDH_Helpers::sanitize_title(wp_unslash($_POST['mdh_term_meta_title']));
             update_term_meta($term_id, '_mdh_meta_title', $meta_title);
         }
-        
+
         // Save meta description
         if (isset($_POST['mdh_term_meta_description'])) {
-            $meta_description = MDH_Helpers::sanitize_description($_POST['mdh_term_meta_description']);
+            $meta_description = MDH_Helpers::sanitize_description(wp_unslash($_POST['mdh_term_meta_description']));
             update_term_meta($term_id, '_mdh_meta_description', $meta_description);
         }
         
@@ -181,8 +181,8 @@ class MDH_Taxonomy_Meta {
      * Add columns to taxonomy list
      */
     public function add_columns($columns) {
-        $columns['mdh_meta_title'] = 'Meta Tytuł';
-        $columns['mdh_meta_description'] = 'Meta Opis';
+        $columns['mdh_meta_title'] = __('Meta Tytuł', 'meta-description-handler');
+        $columns['mdh_meta_description'] = __('Meta Opis', 'meta-description-handler');
         return $columns;
     }
     

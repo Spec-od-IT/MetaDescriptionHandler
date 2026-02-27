@@ -1,4 +1,4 @@
-# Meta Description Handler POT File
+# English (US) translation for Meta Description Handler
 # Copyright (C) 2026
 # This file is distributed under the GPL v2 or later.
 #
@@ -7,644 +7,644 @@ msgstr ""
 "Project-Id-Version: Meta Description Handler 1.0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-27 00:00+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2026-02-27 00:00+0000\n"
 "Last-Translator: \n"
-"Language-Team: \n"
-"Language: \n"
+"Language-Team: English (United States)\n"
+"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: includes/class-mdh-admin.php
 msgid "Ustawienia ogólne"
-msgstr ""
+msgstr "General Settings"
 
 #: includes/class-mdh-admin.php
 msgid "Typy wpisów"
-msgstr ""
+msgstr "Post Types"
 
 #: includes/class-mdh-admin.php
 msgid "Taksonomie"
-msgstr ""
+msgstr "Taxonomies"
 
 #: includes/class-mdh-admin.php
 msgid "Archiwa"
-msgstr ""
+msgstr "Archives"
 
 #: includes/class-mdh-admin.php
 msgid "Strony specjalne"
-msgstr ""
+msgstr "Special Pages"
 
 #: includes/class-mdh-admin.php
 msgid "Brak uprawnień."
-msgstr ""
+msgstr "Permission denied."
 
 #: includes/class-mdh-admin.php
 msgid "Ustawienia zapisane pomyślnie."
-msgstr ""
+msgstr "Settings saved successfully."
 
 #: includes/class-mdh-admin.php
 msgid "Skonfiguruj sposób generowania meta tytułów i opisów dla Twojej witryny."
-msgstr ""
+msgstr "Configure how meta titles and descriptions are generated for your website."
 
 #: includes/class-mdh-admin.php
 msgid "Ogólne"
-msgstr ""
+msgstr "General"
 
 #: includes/class-mdh-admin.php
 msgid "Strona główna"
-msgstr ""
+msgstr "Homepage"
 
 #: includes/class-mdh-admin.php
 msgid "Formaty tytułów"
-msgstr ""
+msgstr "Title Formats"
 
 #: includes/class-mdh-admin.php
 msgid "Separator tytułu"
-msgstr ""
+msgstr "Title Separator"
 
 #: includes/class-mdh-admin.php
 msgid "Znak(i) używane do rozdzielania części tytułu."
-msgstr ""
+msgstr "Character(s) used to separate parts of the title."
 
 #: includes/class-mdh-admin.php
 msgid "Włączone typy wpisów"
-msgstr ""
+msgstr "Enabled Post Types"
 
 #: includes/class-mdh-admin.php
 msgid "Wybierz, które typy wpisów powinny mieć włączone pola meta."
-msgstr ""
+msgstr "Select which post types should have meta fields enabled."
 
 #: includes/class-mdh-admin.php
 msgid "Włączone taksonomie"
-msgstr ""
+msgstr "Enabled Taxonomies"
 
 #: includes/class-mdh-admin.php
 msgid "Wybierz, które taksonomie powinny mieć włączone pola meta."
-msgstr ""
+msgstr "Select which taxonomies should have meta fields enabled."
 
 #: includes/class-mdh-admin.php
 msgid "Tytuł strony głównej"
-msgstr ""
+msgstr "Homepage Title"
 
 #: includes/class-mdh-admin.php
 msgid "Pozostaw puste, aby użyć domyślnego tytułu witryny."
-msgstr ""
+msgstr "Leave empty to use the default site title."
 
 #: includes/class-mdh-admin.php
 msgid "Opis strony głównej"
-msgstr ""
+msgstr "Homepage Description"
 
 #: includes/class-mdh-admin.php
 msgid "Pozostaw puste, aby użyć opisu witryny (tagline)."
-msgstr ""
+msgstr "Leave empty to use the site tagline."
 
 #: includes/class-mdh-admin.php
 msgid "Dostępne znaczniki:"
-msgstr ""
+msgstr "Available placeholders:"
 
 #: includes/class-mdh-admin.php
 msgid "Format tytułu wpisu"
-msgstr ""
+msgstr "Post Title Format"
 
 #: includes/class-mdh-admin.php
 msgid "Format tytułu strony"
-msgstr ""
+msgstr "Page Title Format"
 
 #: includes/class-mdh-admin.php
 msgid "Format tytułu archiwum"
-msgstr ""
+msgstr "Archive Title Format"
 
 #: includes/class-mdh-admin.php
 msgid "Format tytułu taksonomii"
-msgstr ""
+msgstr "Taxonomy Title Format"
 
 #: includes/class-mdh-admin.php
 msgid "Format tytułu wyników wyszukiwania"
-msgstr ""
+msgstr "Search Results Title Format"
 
 #: includes/class-mdh-admin.php
 msgid "Tytuł strony 404"
-msgstr ""
+msgstr "404 Page Title"
 
 #: includes/class-mdh-admin.php
 msgid "Opis strony 404"
-msgstr ""
+msgstr "404 Page Description"
 
 #: includes/class-mdh-sitemap.php
 msgid "Mapa witryny XML"
-msgstr ""
+msgstr "XML Sitemap"
 
 #: includes/class-mdh-sitemap.php
 msgid "Mapa witryny"
-msgstr ""
+msgstr "Sitemap"
 
 #: includes/class-mdh-admin.php
 msgid "Włącz wbudowaną mapę witryny WordPress"
-msgstr ""
+msgstr "Enable built-in WordPress sitemap"
 
 #: includes/class-mdh-admin.php
 msgid "Strony oznaczone jako noindex oraz wyłączone typy wpisów/taksonomie są automatycznie wykluczane z mapy witryny. Odznacz, aby całkowicie wyłączyć mapę witryny."
-msgstr ""
+msgstr "Pages marked as noindex and disabled post types/taxonomies are automatically excluded from the sitemap. Uncheck to completely disable the sitemap."
 
 #: includes/class-mdh-admin.php
 msgid "Wykrywanie konfliktów SEO"
-msgstr ""
+msgstr "SEO Conflict Detection"
 
 #: includes/class-mdh-admin.php
 msgid "Wymuś generowanie tagów"
-msgstr ""
+msgstr "Force Tag Generation"
 
 #: includes/class-mdh-admin.php
 msgid "Generuj tagi meta nawet gdy wykryto inną wtyczkę SEO (zaawansowane)"
-msgstr ""
+msgstr "Generate meta tags even when another SEO plugin is detected (advanced)"
 
 #: includes/class-mdh-admin.php
 msgid "Włącz tę opcję tylko jeśli wiesz co robisz. Może powodować duplikowanie meta tagów."
-msgstr ""
+msgstr "Enable this option only if you know what you are doing. It may cause duplicate meta tags."
 
 #: includes/class-mdh-admin.php
 #, php-format
 msgid "Obecnie wykryto: %s"
-msgstr ""
+msgstr "Currently detected: %s"
 
 #: includes/class-mdh-admin.php
 msgid "Meta Description Handler — wykryto konflikt z wtyczką SEO"
-msgstr ""
+msgstr "Meta Description Handler — SEO plugin conflict detected"
 
 #: includes/class-mdh-admin.php
 #, php-format
 msgid "Wykryto aktywną wtyczkę SEO: %s. Aby uniknąć duplikowania meta tagów, Meta Description Handler %s."
-msgstr ""
+msgstr "Active SEO plugin detected: %s. To avoid duplicating meta tags, Meta Description Handler %s."
 
 #: includes/class-mdh-admin.php
 msgid "nadal generuje tagi meta (tryb wymuszony)"
-msgstr ""
+msgstr "is still generating meta tags (forced mode)"
 
 #: includes/class-mdh-admin.php
 msgid "automatycznie wyłączył generowanie tagów meta na froncie"
-msgstr ""
+msgstr "has automatically disabled frontend meta tag generation"
 
 #: includes/class-mdh-admin.php
 msgid "Zalecane działania:"
-msgstr ""
+msgstr "Recommended actions:"
 
 #: includes/class-mdh-admin.php
 msgid "Dezaktywuj jedną z wtyczek SEO, aby uniknąć konfliktów."
-msgstr ""
+msgstr "Deactivate one of the SEO plugins to avoid conflicts."
 
 #: includes/class-mdh-admin.php
 #, php-format
 msgid "Lub przejdź do <a href=\"%s\">ustawień Meta Description Handler</a>, aby wymusić generowanie tagów (zaawansowane)."
-msgstr ""
+msgstr "Or go to <a href=\"%s\">Meta Description Handler settings</a> to force tag generation (advanced)."
 
 #: includes/class-mdh-admin.php
 msgid "Ustawienia Social Media"
-msgstr ""
+msgstr "Social Media Settings"
 
 #: includes/class-mdh-admin.php
 msgid "Skonfiguruj domyślne ustawienia Open Graph i profili społecznościowych."
-msgstr ""
+msgstr "Configure default Open Graph and social media profile settings."
 
 #: includes/class-mdh-admin.php
 msgid "Domyślny obrazek Open Graph"
-msgstr ""
+msgstr "Default Open Graph Image"
 
 #: includes/class-mdh-admin.php
 msgid "Ten obrazek będzie używany jako domyślny og:image gdy strona nie ma wyróżnionego obrazka. Zalecany rozmiar: 1200x630 pikseli."
-msgstr ""
+msgstr "This image will be used as the default og:image when a page has no featured image. Recommended size: 1200x630 pixels."
 
 #: includes/class-mdh-admin.php
 msgid "Domyślny obrazek OG"
-msgstr ""
+msgstr "Default OG Image"
 
 #: includes/class-mdh-admin.php
 msgid "Wybierz obrazek"
-msgstr ""
+msgstr "Choose Image"
 
 #: includes/class-mdh-admin.php
 msgid "Usuń obrazek"
-msgstr ""
+msgstr "Remove Image"
 
 #: includes/class-mdh-admin.php
 msgid "Konta społecznościowe"
-msgstr ""
+msgstr "Social Accounts"
 
 #: includes/class-mdh-admin.php
 msgid "Nazwa konta Twitter/X (np. @mojafirma). Zostanie dodany jako tag <code>twitter:site</code>."
-msgstr ""
+msgstr "Twitter/X account name (e.g. @mycompany). Will be added as a <code>twitter:site</code> tag."
 
 #: includes/class-mdh-admin.php
 msgid "Zapisz zmiany"
-msgstr ""
+msgstr "Save Changes"
 
 #: assets/js/admin.js
 msgid "Zapisywanie..."
-msgstr ""
+msgstr "Saving..."
 
 #: assets/js/admin.js
 msgid "Ustawienia zapisane!"
-msgstr ""
+msgstr "Settings saved!"
 
 #: assets/js/admin.js
 msgid "Błąd podczas zapisywania."
-msgstr ""
+msgstr "Error saving settings."
 
 #: assets/js/admin.js
 msgid "Optymalna długość (≤580px)"
-msgstr ""
+msgstr "Optimal length (≤580px)"
 
 #: assets/js/admin.js
 msgid "Za krótki (<400px)"
-msgstr ""
+msgstr "Too short (<400px)"
 
 #: assets/js/admin.js
 msgid "Za długi - zostanie obcięty (>580px)"
-msgstr ""
+msgstr "Too long - will be truncated (>580px)"
 
 #: assets/js/admin.js
 msgid "Optymalna długość (≤920px)"
-msgstr ""
+msgstr "Optimal length (≤920px)"
 
 #: assets/js/admin.js
 msgid "Za długi - zostanie obcięty (>920px)"
-msgstr ""
+msgstr "Too long - will be truncated (>920px)"
 
 #: assets/js/admin.js
 msgid "Ładowanie..."
-msgstr ""
+msgstr "Loading..."
 
 #: assets/js/admin.js
 msgid "Strona"
-msgstr ""
+msgstr "Page"
 
 #: assets/js/admin.js
 msgid "z"
-msgstr ""
+msgstr "of"
 
 #: assets/js/admin.js
 msgid "Poprzednia"
-msgstr ""
+msgstr "Previous"
 
 #: assets/js/admin.js
 msgid "Następna"
-msgstr ""
+msgstr "Next"
 
 #: assets/js/admin.js
 msgid "Brak opisu..."
-msgstr ""
+msgstr "No description..."
 
 #: assets/js/admin.js
 msgid "Tytuł strony"
-msgstr ""
+msgstr "Page Title"
 
 #: assets/js/admin.js
 msgid "Meta dane zostały zapisane!"
-msgstr ""
+msgstr "Meta data saved!"
 
 #: assets/js/admin.js
 msgid "Błąd połączenia."
-msgstr ""
+msgstr "Connection error."
 
 #: assets/js/admin.js
 msgid "Wybierz domyślny obrazek OG"
-msgstr ""
+msgstr "Choose Default OG Image"
 
 #: assets/js/admin.js
 msgid "Użyj tego obrazka"
-msgstr ""
+msgstr "Use This Image"
 
 #: includes/class-mdh-admin.php
 msgid "Ustawienia typów wpisów"
-msgstr ""
+msgstr "Post Type Settings"
 
 #: includes/class-mdh-admin.php
 msgid "Skonfiguruj domyślne formaty tytułów i opisy dla każdego typu wpisu."
-msgstr ""
+msgstr "Configure default title formats and descriptions for each post type."
 
 #: includes/class-mdh-admin.php
 #, php-format
 msgid "Ustawienia: %s"
-msgstr ""
+msgstr "Settings: %s"
 
 #: includes/class-mdh-admin.php
 msgid "Ten typ wpisu nie jest włączony. Włącz go w Ustawieniach ogólnych, aby używać pól meta."
-msgstr ""
+msgstr "This post type is not enabled. Enable it in General Settings to use meta fields."
 
 #: includes/class-mdh-admin.php
 msgid "Domyślny format tytułu"
-msgstr ""
+msgstr "Default Title Format"
 
 #: includes/class-mdh-admin.php
 msgid "Dostępne:"
-msgstr ""
+msgstr "Available:"
 
 #: includes/class-mdh-admin.php
 msgid "Domyślny opis"
-msgstr ""
+msgstr "Default Description"
 
 #: includes/class-mdh-admin.php
 msgid "Używany gdy nie ustawiono niestandardowego opisu. Pozostaw puste, aby użyć zajawki lub automatycznie wygenerowanej treści."
-msgstr ""
+msgstr "Used when no custom description is set. Leave empty to use excerpt or auto-generated content."
 
 #: includes/class-mdh-admin.php
 msgid "Ustawienia strony archiwum"
-msgstr ""
+msgstr "Archive Page Settings"
 
 #: includes/class-mdh-admin.php
 msgid "Tytuł archiwum"
-msgstr ""
+msgstr "Archive Title"
 
 #: includes/class-mdh-admin.php
 msgid "Opis archiwum"
-msgstr ""
+msgstr "Archive Description"
 
 #: includes/class-mdh-admin.php
 msgid "Ustawienia taksonomii"
-msgstr ""
+msgstr "Taxonomy Settings"
 
 #: includes/class-mdh-admin.php
 msgid "Skonfiguruj domyślne formaty tytułów i opisy dla każdej taksonomii."
-msgstr ""
+msgstr "Configure default title formats and descriptions for each taxonomy."
 
 #: includes/class-mdh-admin.php
 msgid "Ta taksonomia nie jest włączona. Włącz ją w Ustawieniach ogólnych, aby używać pól meta."
-msgstr ""
+msgstr "This taxonomy is not enabled. Enable it in General Settings to use meta fields."
 
 #: includes/class-mdh-admin.php
 msgid "Używany gdy nie ustawiono niestandardowego opisu dla terminu."
-msgstr ""
+msgstr "Used when no custom description is set for a term."
 
 #: includes/class-mdh-admin.php
 msgid "Ustawienia archiwów"
-msgstr ""
+msgstr "Archive Settings"
 
 #: includes/class-mdh-admin.php
 msgid "Skonfiguruj meta tytuły i opisy dla stron archiwów."
-msgstr ""
+msgstr "Configure meta titles and descriptions for archive pages."
 
 #: includes/class-mdh-admin.php
 msgid "Archiwa dat"
-msgstr ""
+msgstr "Date Archives"
 
 #: includes/class-mdh-admin.php
 msgid "Archiwa autorów"
-msgstr ""
+msgstr "Author Archives"
 
 #: includes/class-mdh-admin.php
 msgid "Ustawienia archiwów dat"
-msgstr ""
+msgstr "Date Archive Settings"
 
 #: includes/class-mdh-admin.php
 msgid "Archiwa roczne"
-msgstr ""
+msgstr "Yearly Archives"
 
 #: includes/class-mdh-admin.php
 msgid "Archiwa miesięczne"
-msgstr ""
+msgstr "Monthly Archives"
 
 #: includes/class-mdh-admin.php
 msgid "Archiwa dzienne"
-msgstr ""
+msgstr "Daily Archives"
 
 #: includes/class-mdh-admin.php
 msgid "Format tytułu"
-msgstr ""
+msgstr "Title Format"
 
 #: includes/class-mdh-admin.php
 msgid "Opis"
-msgstr ""
+msgstr "Description"
 
 #: includes/class-mdh-admin.php
 msgid "Ustawienia archiwów autorów"
-msgstr ""
+msgstr "Author Archive Settings"
 
 #: includes/class-mdh-admin.php
 msgid "Format opisu"
-msgstr ""
+msgstr "Description Format"
 
 #: includes/class-mdh-admin.php
 msgid "Użyj %author_name% aby wstawić nazwę autora."
-msgstr ""
+msgstr "Use %author_name% to insert the author name."
 
 #: includes/class-mdh-admin.php
 msgid "Ustawienia stron specjalnych"
-msgstr ""
+msgstr "Special Page Settings"
 
 #: includes/class-mdh-admin.php
 msgid "Skonfiguruj meta tytuły i opisy dla specjalnych stron WordPress."
-msgstr ""
+msgstr "Configure meta titles and descriptions for special WordPress pages."
 
 #: includes/class-mdh-admin.php
 msgid "Wyniki wyszukiwania"
-msgstr ""
+msgstr "Search Results"
 
 #: includes/class-mdh-admin.php
 msgid "Strona 404"
-msgstr ""
+msgstr "404 Page"
 
 #: includes/class-mdh-admin.php
 msgid "Strona wyników wyszukiwania"
-msgstr ""
+msgstr "Search Results Page"
 
 #: includes/class-mdh-admin.php
 msgid "Strona błędu 404"
-msgstr ""
+msgstr "404 Error Page"
 
 #: includes/class-mdh-post-meta.php
 msgid "Meta Tytuł i Opis"
-msgstr ""
+msgstr "Meta Title & Description"
 
 #: includes/class-mdh-post-meta.php
 msgid "Podgląd w wyszukiwarce"
-msgstr ""
+msgstr "Search Engine Preview"
 
 #: includes/class-mdh-post-meta.php
 msgid "Meta tytuł"
-msgstr ""
+msgstr "Meta Title"
 
 #: includes/class-mdh-post-meta.php
 msgid "Pozostaw puste, aby użyć tytułu wpisu z domyślnym formatem."
-msgstr ""
+msgstr "Leave empty to use the post title with the default format."
 
 #: includes/class-mdh-post-meta.php
 msgid "Meta opis"
-msgstr ""
+msgstr "Meta Description"
 
 #: includes/class-mdh-post-meta.php
 msgid "Wpisz przekonujący opis..."
-msgstr ""
+msgstr "Enter a compelling description..."
 
 #: includes/class-mdh-post-meta.php
 msgid "Pozostaw puste, aby automatycznie wygenerować z treści wpisu."
-msgstr ""
+msgstr "Leave empty to auto-generate from post content."
 
 #: includes/class-mdh-post-meta.php
 msgid "Widoczność w wyszukiwarkach"
-msgstr ""
+msgstr "Search Engine Visibility"
 
 #: includes/class-mdh-post-meta.php
 msgid "NoIndex - Nie indeksuj tej strony"
-msgstr ""
+msgstr "NoIndex - Do not index this page"
 
 #: includes/class-mdh-post-meta.php
 msgid "(Zniechęć wyszukiwarki do indeksowania tej strony)"
-msgstr ""
+msgstr "(Discourage search engines from indexing this page)"
 
 #: includes/class-mdh-post-meta.php
 msgid "NoFollow - Nie śledź linków na tej stronie"
-msgstr ""
+msgstr "NoFollow - Do not follow links on this page"
 
 #: includes/class-mdh-post-meta.php
 msgid "(Zniechęć wyszukiwarki do podążania za linkami na tej stronie)"
-msgstr ""
+msgstr "(Discourage search engines from following links on this page)"
 
 #: includes/class-mdh-taxonomy-meta.php
 msgid "Meta Tytuł"
-msgstr ""
+msgstr "Meta Title"
 
 #: includes/class-mdh-taxonomy-meta.php
 msgid "Meta Opis"
-msgstr ""
+msgstr "Meta Description"
 
 #: includes/class-mdh-taxonomy-meta.php
 msgid "Własny meta tytuł dla tego terminu. Pozostaw puste, aby użyć nazwy terminu."
-msgstr ""
+msgstr "Custom meta title for this term. Leave empty to use the term name."
 
 #: includes/class-mdh-taxonomy-meta.php
 msgid "Własny meta opis dla archiwum tego terminu."
-msgstr ""
+msgstr "Custom meta description for this term archive."
 
 #: includes/class-mdh-taxonomy-meta.php
 msgid "Nie indeksuj - Zniechęć wyszukiwarki do indeksowania archiwum tego terminu"
-msgstr ""
+msgstr "NoIndex - Discourage search engines from indexing this term archive"
 
 #: includes/class-mdh-taxonomy-meta.php
 msgid "Podgląd Google:"
-msgstr ""
+msgstr "Google Preview:"
 
 #: includes/class-mdh-taxonomy-meta.php
 msgid "Wpisz tytuł..."
-msgstr ""
+msgstr "Enter title..."
 
 #: includes/class-mdh-bulk-editor.php
 msgid "Edytor zbiorczy"
-msgstr ""
+msgstr "Bulk Editor"
 
 #: includes/class-mdh-bulk-editor.php
 msgid "Edytor zbiorczy meta danych"
-msgstr ""
+msgstr "Bulk Meta Data Editor"
 
 #: includes/class-mdh-bulk-editor.php
 msgid "Zarządzaj meta tytułami i opisami wszystkich treści w jednym miejscu. Kliknij na wiersz, aby edytować."
-msgstr ""
+msgstr "Manage meta titles and descriptions for all content in one place. Click a row to edit."
 
 #: includes/class-mdh-bulk-editor.php
 msgid "Typ treści:"
-msgstr ""
+msgstr "Content Type:"
 
 #: includes/class-mdh-bulk-editor.php
 msgid "Status meta:"
-msgstr ""
+msgstr "Meta Status:"
 
 #: includes/class-mdh-bulk-editor.php
 msgid "Wszystkie"
-msgstr ""
+msgstr "All"
 
 #: includes/class-mdh-bulk-editor.php
 msgid "Z ustawionym meta"
-msgstr ""
+msgstr "With meta set"
 
 #: includes/class-mdh-bulk-editor.php
 msgid "Bez meta"
-msgstr ""
+msgstr "Without meta"
 
 #: includes/class-mdh-bulk-editor.php
 msgid "Szukaj:"
-msgstr ""
+msgstr "Search:"
 
 #: includes/class-mdh-bulk-editor.php
 msgid "Załaduj"
-msgstr ""
+msgstr "Load"
 
 #: includes/class-mdh-bulk-editor.php
 msgid "Tytuł"
-msgstr ""
+msgstr "Title"
 
 #: includes/class-mdh-bulk-editor.php
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: includes/class-mdh-bulk-editor.php
 msgid "Akcje"
-msgstr ""
+msgstr "Actions"
 
 #: includes/class-mdh-bulk-editor.php
 msgid "Wybierz typ treści i kliknij \"Załaduj\" aby wyświetlić elementy."
-msgstr ""
+msgstr "Select a content type and click \"Load\" to display items."
 
 #: includes/class-mdh-bulk-editor.php
 msgid "Edytuj meta dane"
-msgstr ""
+msgstr "Edit Meta Data"
 
 #: includes/class-mdh-bulk-editor.php
 msgid "Edytuj meta"
-msgstr ""
+msgstr "Edit Meta"
 
 #: includes/class-mdh-bulk-editor.php
 msgid "Nie indeksuj (noindex)"
-msgstr ""
+msgstr "No Index (noindex)"
 
 #: includes/class-mdh-bulk-editor.php
 msgid "Nie podążaj (nofollow)"
-msgstr ""
+msgstr "No Follow (nofollow)"
 
 #: includes/class-mdh-bulk-editor.php
 msgid "Anuluj"
-msgstr ""
+msgstr "Cancel"
 
 #: includes/class-mdh-bulk-editor.php
 msgid "Brak"
-msgstr ""
+msgstr "None"
 
 #: includes/class-mdh-bulk-editor.php
 msgid "Zobacz"
-msgstr ""
+msgstr "View"
 
 #: includes/class-mdh-bulk-editor.php
 msgid "Nie znaleziono elementów."
-msgstr ""
+msgstr "No items found."
 
 #: includes/class-mdh-bulk-editor.php
 msgid "Nieprawidłowe dane."
-msgstr ""
+msgstr "Invalid data."
 
 #: includes/class-mdh-bulk-editor.php
 msgid "Zapisano pomyślnie."
-msgstr ""
+msgstr "Saved successfully."
 
 #: includes/class-mdh-bulk-editor.php
 msgid "Nieprawidłowy typ treści."
-msgstr ""
+msgstr "Invalid content type."
 
 #: includes/class-mdh-frontend.php
 #, php-format
 msgid "Wyniki wyszukiwania: „%s\""
-msgstr ""
+msgstr "Search results: \"%s\""
 
 #: includes/class-mdh-frontend.php
 #, php-format
 msgid "Strona %d"
-msgstr ""
+msgstr "Page %d"
 
 #: includes/class-mdh-helpers.php
 msgid "Wpisy autora %author_name% %separator% %site_title%"
-msgstr ""
+msgstr "Posts by %author_name% %separator% %site_title%"
 
 #: includes/class-mdh-helpers.php
 msgid "Wyniki wyszukiwania dla \"%search_query%\" %separator% %site_title%"
-msgstr ""
+msgstr "Search results for \"%search_query%\" %separator% %site_title%"
 
 #: includes/class-mdh-helpers.php
 msgid "Strona nie została znaleziona %separator% %site_title%"
-msgstr ""
+msgstr "Page Not Found %separator% %site_title%"

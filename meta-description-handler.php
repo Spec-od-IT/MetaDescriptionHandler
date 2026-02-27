@@ -63,6 +63,9 @@ class MetaDescriptionHandler {
         require_once MDH_PLUGIN_DIR . 'includes/class-mdh-taxonomy-meta.php';
         require_once MDH_PLUGIN_DIR . 'includes/class-mdh-frontend.php';
         require_once MDH_PLUGIN_DIR . 'includes/class-mdh-bulk-editor.php';
+        require_once MDH_PLUGIN_DIR . 'includes/class-mdh-schema.php';
+        require_once MDH_PLUGIN_DIR . 'includes/class-mdh-sitemap.php';
+        require_once MDH_PLUGIN_DIR . 'includes/class-mdh-updater.php';
     }
     
     /**
@@ -101,10 +104,19 @@ class MetaDescriptionHandler {
             MDH_Post_Meta::get_instance();
             MDH_Taxonomy_Meta::get_instance();
             MDH_Bulk_Editor::get_instance();
+            MDH_Updater::get_instance();
         }
         
         // Frontend
         MDH_Frontend::get_instance();
+
+        // Schema.org structured data (frontend only)
+        if (!is_admin()) {
+            MDH_Schema::get_instance();
+        }
+
+        // Sitemap control (always active — filters WP built-in sitemap)
+        MDH_Sitemap::get_instance();
     }
     
     /**
@@ -143,6 +155,11 @@ class MetaDescriptionHandler {
             ),
             'enabled_post_types' => array('post', 'page'),
             'enabled_taxonomies' => array('category', 'post_tag'),
+            'force_frontend_output' => false,
+            'sitemap_enabled' => true,
+            'default_og_image' => '',
+            'default_og_image_id' => 0,
+            'twitter_site' => '',
             'post_type_settings' => array(
                 'post' => array(
                     'title_format' => '%post_title% %separator% %site_title%',
@@ -178,6 +195,7 @@ class MetaDescriptionHandler {
      */
     public function deactivate() {
         flush_rewrite_rules();
+        MDH_Updater::clear_cache();
     }
 }
 

@@ -87,7 +87,7 @@
         initTabs: function() {
             // Check for hash in URL
             var hash = window.location.hash;
-            if (hash && $(hash).length) {
+            if (hash && /^#[a-zA-Z0-9_-]+$/.test(hash) && $(hash).length) {
                 this.activateTab(hash);
             }
         },
@@ -110,7 +110,11 @@
          * Activate tab
          */
         activateTab: function(target) {
-            var $link = $('.mdh-tab-link[href="' + target + '"]');
+            if (!target || !/^#[a-zA-Z0-9_-]+$/.test(target)) return;
+
+            var $link = $('.mdh-tab-link').filter(function() {
+                return $(this).attr('href') === target;
+            });
             var $panel = $(target);
             
             if (!$panel.length) return;
@@ -303,7 +307,7 @@
         showToast: function(message, type) {
             type = type || 'success';
             
-            var $toast = $('<div class="mdh-toast ' + type + '">' + message + '</div>');
+            var $toast = $('<div class="mdh-toast"></div>').addClass(type).text(message);
             $('body').append($toast);
             
             setTimeout(function() {
@@ -352,6 +356,66 @@
     // Initialize on document ready
     $(document).ready(function() {
         MDHAdmin.init();
+    });
+
+    // Handle MDH conflict notice dismissal
+    $(document).on('click', '.mdh-conflict-notice .notice-dismiss', function() {
+        var $notice = $(this).closest('.mdh-conflict-notice');
+        var nonce = $notice.data('nonce');
+
+        $.ajax({
+            url: ajaxurl,
+            type: 'POST',
+            data: {
+                action: 'mdh_dismiss_conflict_notice',
+                nonce: nonce
+            }
+        });
+    });
+
+    // OG Image media uploader (Social Media settings page)
+    $(document).on('click', '#mdh-upload-og-image', function(e) {
+        e.preventDefault();
+
+        var frame = wp.media({
+            title: mdhAdmin.strings.chooseOgImage,
+            button: { text: mdhAdmin.strings.useThisImage },
+            multiple: false,
+            library: { type: 'image' }
+        });
+
+        frame.on('select', function() {
+            var attachment = frame.state().get('selection').first().toJSON();
+            var url = attachment.sizes && attachment.sizes.large ? attachment.sizes.large.url : attachment.url;
+
+            $('#mdh_default_og_image').val(url);
+            $('#mdh_default_og_image_id').val(attachment.id);
+            $('#mdh-og-image-preview').empty().append(
+                $('<img>').attr('src', url).css({
+                    maxWidth: '400px',
+                    height: 'auto',
+                    display: 'block',
+                    marginBottom: '10px'
+                })
+            );
+
+            // Show remove button if not already visible
+            if ($('#mdh-remove-og-image').length === 0) {
+                $('<button type="button" class="button" id="mdh-remove-og-image"></button>')
+                    .text(mdhAdmin.strings.removeImage || 'Usuń obrazek')
+                    .insertAfter('#mdh-upload-og-image');
+            }
+        });
+
+        frame.open();
+    });
+
+    $(document).on('click', '#mdh-remove-og-image', function(e) {
+        e.preventDefault();
+        $('#mdh_default_og_image').val('');
+        $('#mdh_default_og_image_id').val('0');
+        $('#mdh-og-image-preview').html('');
+        $(this).remove();
     });
 
     // Expose to global scope

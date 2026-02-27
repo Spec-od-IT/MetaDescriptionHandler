@@ -51,17 +51,17 @@ class MDH_Bulk_Editor {
         $taxonomies = MDH_Helpers::get_public_taxonomies();
         ?>
         <div class="wrap mdh-admin-wrap mdh-bulk-editor">
-            <h1><?php _e('Edytor zbiorczy meta danych', 'meta-description-handler'); ?></h1>
+            <h1><?php esc_html_e('Edytor zbiorczy meta danych', 'meta-description-handler'); ?></h1>
             
             <p class="mdh-description">
-                <?php _e('Zarządzaj meta tytułami i opisami wszystkich treści w jednym miejscu. Kliknij na wiersz, aby edytować.', 'meta-description-handler'); ?>
+                <?php esc_html_e('Zarządzaj meta tytułami i opisami wszystkich treści w jednym miejscu. Kliknij na wiersz, aby edytować.', 'meta-description-handler'); ?>
             </p>
             
             <div class="mdh-bulk-filters">
                 <div class="mdh-filter-group">
-                    <label for="mdh-content-type"><?php _e('Typ treści:', 'meta-description-handler'); ?></label>
+                    <label for="mdh-content-type"><?php esc_html_e('Typ treści:', 'meta-description-handler'); ?></label>
                     <select id="mdh-content-type">
-                        <optgroup label="<?php _e('Typy wpisów', 'meta-description-handler'); ?>">
+                        <optgroup label="<?php esc_attr_e('Typy wpisów', 'meta-description-handler'); ?>">
                             <?php foreach ($post_types as $pt): 
                                 if (!in_array($pt->name, $enabled_post_types)) continue;
                             ?>
@@ -70,7 +70,7 @@ class MDH_Bulk_Editor {
                                 </option>
                             <?php endforeach; ?>
                         </optgroup>
-                        <optgroup label="<?php _e('Taksonomie', 'meta-description-handler'); ?>">
+                        <optgroup label="<?php esc_attr_e('Taksonomie', 'meta-description-handler'); ?>">
                             <?php foreach ($taxonomies as $tax): 
                                 if (!in_array($tax->name, $enabled_taxonomies)) continue;
                             ?>
@@ -83,21 +83,21 @@ class MDH_Bulk_Editor {
                 </div>
                 
                 <div class="mdh-filter-group">
-                    <label for="mdh-filter-status"><?php _e('Status meta:', 'meta-description-handler'); ?></label>
+                    <label for="mdh-filter-status"><?php esc_html_e('Status meta:', 'meta-description-handler'); ?></label>
                     <select id="mdh-filter-status">
-                        <option value="all"><?php _e('Wszystkie', 'meta-description-handler'); ?></option>
-                        <option value="with-meta"><?php _e('Z ustawionym meta', 'meta-description-handler'); ?></option>
-                        <option value="without-meta"><?php _e('Bez meta', 'meta-description-handler'); ?></option>
+                        <option value="all"><?php esc_html_e('Wszystkie', 'meta-description-handler'); ?></option>
+                        <option value="with-meta"><?php esc_html_e('Z ustawionym meta', 'meta-description-handler'); ?></option>
+                        <option value="without-meta"><?php esc_html_e('Bez meta', 'meta-description-handler'); ?></option>
                     </select>
                 </div>
                 
                 <div class="mdh-filter-group">
-                    <label for="mdh-search"><?php _e('Szukaj:', 'meta-description-handler'); ?></label>
-                    <input type="text" id="mdh-search" placeholder="<?php _e('Wpisz tytuł...', 'meta-description-handler'); ?>">
+                    <label for="mdh-search"><?php esc_html_e('Szukaj:', 'meta-description-handler'); ?></label>
+                    <input type="text" id="mdh-search" placeholder="<?php esc_attr_e('Wpisz tytuł...', 'meta-description-handler'); ?>">
                 </div>
                 
                 <button type="button" id="mdh-load-items" class="button button-primary">
-                    <?php _e('Załaduj', 'meta-description-handler'); ?>
+                    <?php esc_html_e('Załaduj', 'meta-description-handler'); ?>
                 </button>
             </div>
             
@@ -105,16 +105,16 @@ class MDH_Bulk_Editor {
                 <table class="mdh-bulk-table wp-list-table widefat fixed striped">
                     <thead>
                         <tr>
-                            <th class="mdh-col-title"><?php _e('Tytuł', 'meta-description-handler'); ?></th>
-                            <th class="mdh-col-meta-title"><?php _e('Meta tytuł', 'meta-description-handler'); ?></th>
-                            <th class="mdh-col-meta-desc"><?php _e('Meta opis', 'meta-description-handler'); ?></th>
-                            <th class="mdh-col-status"><?php _e('Status', 'meta-description-handler'); ?></th>
-                            <th class="mdh-col-actions"><?php _e('Akcje', 'meta-description-handler'); ?></th>
+                            <th class="mdh-col-title"><?php esc_html_e('Tytuł', 'meta-description-handler'); ?></th>
+                            <th class="mdh-col-meta-title"><?php esc_html_e('Meta tytuł', 'meta-description-handler'); ?></th>
+                            <th class="mdh-col-meta-desc"><?php esc_html_e('Meta opis', 'meta-description-handler'); ?></th>
+                            <th class="mdh-col-status"><?php esc_html_e('Status', 'meta-description-handler'); ?></th>
+                            <th class="mdh-col-actions"><?php esc_html_e('Akcje', 'meta-description-handler'); ?></th>
                         </tr>
                     </thead>
                     <tbody id="mdh-items-list">
                         <tr class="mdh-no-items">
-                            <td colspan="5"><?php _e('Wybierz typ treści i kliknij "Załaduj" aby wyświetlić elementy.', 'meta-description-handler'); ?></td>
+                            <td colspan="5"><?php esc_html_e('Wybierz typ treści i kliknij "Załaduj" aby wyświetlić elementy.', 'meta-description-handler'); ?></td>
                         </tr>
                     </tbody>
                 </table>
@@ -126,7 +126,7 @@ class MDH_Bulk_Editor {
             <div id="mdh-edit-modal" class="mdh-modal" style="display:none;">
                 <div class="mdh-modal-content">
                     <div class="mdh-modal-header">
-                        <h2><?php _e('Edytuj meta dane', 'meta-description-handler'); ?></h2>
+                        <h2><?php esc_html_e('Edytuj meta dane', 'meta-description-handler'); ?></h2>
                         <button type="button" class="mdh-modal-close">&times;</button>
                     </div>
                     <div class="mdh-modal-body">
@@ -134,7 +134,7 @@ class MDH_Bulk_Editor {
                         <input type="hidden" id="mdh-edit-type">
                         
                         <div class="mdh-modal-preview">
-                            <h4><?php _e('Podgląd Google:', 'meta-description-handler'); ?></h4>
+                            <h4><?php esc_html_e('Podgląd Google:', 'meta-description-handler'); ?></h4>
                             <div class="mdh-serp-preview">
                                 <div class="mdh-serp-title" id="mdh-modal-preview-title"></div>
                                 <div class="mdh-serp-url" id="mdh-modal-preview-url"></div>
@@ -143,7 +143,7 @@ class MDH_Bulk_Editor {
                         </div>
                         
                         <div class="mdh-form-group">
-                            <label for="mdh-edit-meta-title"><?php _e('Meta tytuł', 'meta-description-handler'); ?></label>
+                            <label for="mdh-edit-meta-title"><?php esc_html_e('Meta tytuł', 'meta-description-handler'); ?></label>
                             <input type="text" id="mdh-edit-meta-title" class="widefat mdh-title-input">
                             <div class="mdh-char-counter" data-type="title">
                                 <span class="mdh-char-count">0</span>/580px
@@ -151,7 +151,7 @@ class MDH_Bulk_Editor {
                         </div>
                         
                         <div class="mdh-form-group">
-                            <label for="mdh-edit-meta-description"><?php _e('Meta opis', 'meta-description-handler'); ?></label>
+                            <label for="mdh-edit-meta-description"><?php esc_html_e('Meta opis', 'meta-description-handler'); ?></label>
                             <textarea id="mdh-edit-meta-description" class="widefat mdh-description-input" rows="4"></textarea>
                             <div class="mdh-char-counter" data-type="description">
                                 <span class="mdh-char-count">0</span>/920px
@@ -161,188 +161,24 @@ class MDH_Bulk_Editor {
                         <div class="mdh-form-group mdh-robots-options">
                             <label>
                                 <input type="checkbox" id="mdh-edit-noindex">
-                                <?php _e('NoIndex - Nie indeksuj tej strony', 'meta-description-handler'); ?>
+                                <?php esc_html_e('NoIndex - Nie indeksuj tej strony', 'meta-description-handler'); ?>
                             </label>
                             <label>
                                 <input type="checkbox" id="mdh-edit-nofollow">
-                                <?php _e('NoFollow - Nie śledź linków na tej stronie', 'meta-description-handler'); ?>
+                                <?php esc_html_e('NoFollow - Nie śledź linków na tej stronie', 'meta-description-handler'); ?>
                             </label>
                         </div>
                     </div>
                     <div class="mdh-modal-footer">
-                        <button type="button" class="button mdh-modal-cancel"><?php _e('Anuluj', 'meta-description-handler'); ?></button>
+                        <button type="button" class="button mdh-modal-cancel"><?php esc_html_e('Anuluj', 'meta-description-handler'); ?></button>
                         <button type="button" class="button button-primary" id="mdh-save-meta">
-                            <?php _e('Zapisz zmiany', 'meta-description-handler'); ?>
+                            <?php esc_html_e('Zapisz zmiany', 'meta-description-handler'); ?>
                         </button>
                     </div>
                 </div>
             </div>
         </div>
         
-        <script>
-        jQuery(document).ready(function($) {
-            var currentPage = 1;
-            var totalPages = 1;
-            
-            // Load items
-            function loadItems(page) {
-                page = page || 1;
-                var contentType = $('#mdh-content-type').val();
-                var filterStatus = $('#mdh-filter-status').val();
-                var search = $('#mdh-search').val();
-                
-                $('#mdh-items-list').html('<tr><td colspan="5" class="mdh-loading-row"><?php _e('Ładowanie...', 'meta-description-handler'); ?></td></tr>');
-                
-                $.ajax({
-                    url: mdhAdmin.ajaxUrl,
-                    type: 'POST',
-                    data: {
-                        action: 'mdh_load_items',
-                        nonce: mdhAdmin.nonce,
-                        content_type: contentType,
-                        filter_status: filterStatus,
-                        search: search,
-                        page: page
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            $('#mdh-items-list').html(response.data.html);
-                            currentPage = response.data.current_page;
-                            totalPages = response.data.total_pages;
-                            updatePagination();
-                        } else {
-                            $('#mdh-items-list').html('<tr><td colspan="5">' + response.data + '</td></tr>');
-                        }
-                    }
-                });
-            }
-            
-            // Update pagination
-            function updatePagination() {
-                var html = '';
-                if (totalPages > 1) {
-                    html += '<span class="mdh-page-info"><?php _e('Strona', 'meta-description-handler'); ?> ' + currentPage + ' <?php _e('z', 'meta-description-handler'); ?> ' + totalPages + '</span>';
-                    
-                    if (currentPage > 1) {
-                        html += '<button type="button" class="button mdh-page-btn" data-page="' + (currentPage - 1) + '">&laquo; <?php _e('Poprzednia', 'meta-description-handler'); ?></button>';
-                    }
-                    if (currentPage < totalPages) {
-                        html += '<button type="button" class="button mdh-page-btn" data-page="' + (currentPage + 1) + '"><?php _e('Następna', 'meta-description-handler'); ?> &raquo;</button>';
-                    }
-                }
-                $('#mdh-pagination').html(html);
-            }
-            
-            // Event handlers
-            $('#mdh-load-items').on('click', function() {
-                loadItems(1);
-            });
-            
-            $(document).on('click', '.mdh-page-btn', function() {
-                loadItems($(this).data('page'));
-            });
-            
-            // Edit item
-            $(document).on('click', '.mdh-edit-btn', function() {
-                var $row = $(this).closest('tr');
-                var id = $row.data('id');
-                var type = $row.data('type');
-                var title = $row.data('title');
-                var url = $row.data('url');
-                var metaTitle = $row.data('meta-title') || '';
-                var metaDesc = $row.data('meta-description') || '';
-                var noindex = $row.data('noindex') == '1';
-                var nofollow = $row.data('nofollow') == '1';
-                
-                $('#mdh-edit-id').val(id);
-                $('#mdh-edit-type').val(type);
-                $('#mdh-edit-meta-title').val(metaTitle);
-                $('#mdh-edit-meta-description').val(metaDesc);
-                $('#mdh-edit-noindex').prop('checked', noindex);
-                $('#mdh-edit-nofollow').prop('checked', nofollow);
-                
-                $('#mdh-modal-preview-title').text(metaTitle || title);
-                $('#mdh-modal-preview-url').text(url);
-                $('#mdh-modal-preview-desc').text(metaDesc || '<?php _e('Brak opisu...', 'meta-description-handler'); ?>');
-                
-                updateModalCounters();
-                
-                $('#mdh-edit-modal').fadeIn(200);
-            });
-            
-            // Update modal counters
-            function updateModalCounters() {
-                var titleLen = $('#mdh-edit-meta-title').val().length;
-                var descLen = $('#mdh-edit-meta-description').val().length;
-                
-                $('#mdh-edit-modal .mdh-char-counter[data-type="title"] .mdh-char-count').text(titleLen);
-                $('#mdh-edit-modal .mdh-char-counter[data-type="description"] .mdh-char-count').text(descLen);
-            }
-            
-            // Live preview update
-            $('#mdh-edit-meta-title').on('input', function() {
-                var val = $(this).val();
-                $('#mdh-modal-preview-title').text(val || '<?php _e('Tytuł strony', 'meta-description-handler'); ?>');
-                updateModalCounters();
-            });
-            
-            $('#mdh-edit-meta-description').on('input', function() {
-                var val = $(this).val();
-                $('#mdh-modal-preview-desc').text(val || '<?php _e('Brak opisu...', 'meta-description-handler'); ?>');
-                updateModalCounters();
-            });
-            
-            // Close modal
-            $('.mdh-modal-close, .mdh-modal-cancel').on('click', function() {
-                $('#mdh-edit-modal').fadeOut(200);
-            });
-            
-            $(document).on('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    $('#mdh-edit-modal').fadeOut(200);
-                }
-            });
-            
-            // Save meta
-            $('#mdh-save-meta').on('click', function() {
-                var $btn = $(this);
-                $btn.prop('disabled', true).text('<?php _e('Zapisywanie...', 'meta-description-handler'); ?>');
-                
-                $.ajax({
-                    url: mdhAdmin.ajaxUrl,
-                    type: 'POST',
-                    data: {
-                        action: 'mdh_bulk_save_meta',
-                        nonce: mdhAdmin.nonce,
-                        id: $('#mdh-edit-id').val(),
-                        type: $('#mdh-edit-type').val(),
-                        meta_title: $('#mdh-edit-meta-title').val(),
-                        meta_description: $('#mdh-edit-meta-description').val(),
-                        noindex: $('#mdh-edit-noindex').is(':checked') ? 1 : 0,
-                        nofollow: $('#mdh-edit-nofollow').is(':checked') ? 1 : 0
-                    },
-                    success: function(response) {
-                        $btn.prop('disabled', false).text('<?php _e('Zapisz zmiany', 'meta-description-handler'); ?>');
-                        
-                        if (response.success) {
-                            $('#mdh-edit-modal').fadeOut(200);
-                            loadItems(currentPage);
-                            MDHAdmin.showToast('<?php _e('Meta dane zostały zapisane!', 'meta-description-handler'); ?>');
-                        } else {
-                            alert(response.data || '<?php _e('Błąd podczas zapisywania.', 'meta-description-handler'); ?>');
-                        }
-                    },
-                    error: function() {
-                        $btn.prop('disabled', false).text('<?php _e('Zapisz zmiany', 'meta-description-handler'); ?>');
-                        alert('<?php _e('Błąd połączenia.', 'meta-description-handler'); ?>');
-                    }
-                });
-            });
-            
-            // Initial load
-            loadItems(1);
-        });
-        </script>
         <?php
     }
     
@@ -361,8 +197,12 @@ class MDH_Bulk_Editor {
         $search = isset($_POST['search']) ? sanitize_text_field($_POST['search']) : '';
         $page = isset($_POST['page']) ? absint($_POST['page']) : 1;
         $per_page = 20;
-        
-        list($type, $name) = explode(':', $content_type);
+
+        if (strpos($content_type, ':') === false) {
+            wp_send_json_error(__('Nieprawidłowy typ treści.', 'meta-description-handler'));
+        }
+
+        list($type, $name) = explode(':', $content_type, 2);
         
         $html = '';
         $total_items = 0;
@@ -491,35 +331,49 @@ class MDH_Bulk_Editor {
                 'orderby' => 'name',
                 'order' => 'ASC',
             );
-            
+
             if (!empty($search)) {
                 $args['search'] = $search;
             }
-            
-            $terms = get_terms($args);
-            
-            // Get total count
-            $count_args = array(
-                'taxonomy' => $name,
-                'hide_empty' => false,
-            );
-            if (!empty($search)) {
-                $count_args['search'] = $search;
+
+            // Filter by meta status at query level
+            if ($filter_status === 'with-meta') {
+                $args['meta_query'] = array(
+                    'relation' => 'OR',
+                    array('key' => '_mdh_meta_title', 'value' => '', 'compare' => '!='),
+                    array('key' => '_mdh_meta_description', 'value' => '', 'compare' => '!='),
+                );
+            } elseif ($filter_status === 'without-meta') {
+                $args['meta_query'] = array(
+                    'relation' => 'AND',
+                    array(
+                        'relation' => 'OR',
+                        array('key' => '_mdh_meta_title', 'compare' => 'NOT EXISTS'),
+                        array('key' => '_mdh_meta_title', 'value' => '', 'compare' => '='),
+                    ),
+                    array(
+                        'relation' => 'OR',
+                        array('key' => '_mdh_meta_description', 'compare' => 'NOT EXISTS'),
+                        array('key' => '_mdh_meta_description', 'value' => '', 'compare' => '='),
+                    ),
+                );
             }
-            $all_terms = get_terms($count_args);
-            $total_items = is_array($all_terms) ? count($all_terms) : 0;
-            
+
+            $terms = get_terms($args);
+
+            // Get total count with same filters
+            $count_args = $args;
+            unset($count_args['number'], $count_args['offset']);
+            $count_args['fields'] = 'count';
+            $total_items = (int) get_terms($count_args);
+
             if (!empty($terms) && !is_wp_error($terms)) {
                 foreach ($terms as $term) {
                     $meta_title = get_term_meta($term->term_id, '_mdh_meta_title', true);
                     $meta_description = get_term_meta($term->term_id, '_mdh_meta_description', true);
                     $noindex = get_term_meta($term->term_id, '_mdh_robots_noindex', true);
-                    
-                    // Filter by status
+
                     $has_meta = !empty($meta_title) || !empty($meta_description);
-                    if ($filter_status === 'with-meta' && !$has_meta) continue;
-                    if ($filter_status === 'without-meta' && $has_meta) continue;
-                    
                     $status_class = $has_meta ? 'mdh-status-set' : 'mdh-status-empty';
                     $status_text = $has_meta ? __('Ustawione', 'meta-description-handler') : __('Brak', 'meta-description-handler');
                     
@@ -586,8 +440,8 @@ class MDH_Bulk_Editor {
         
         $id = isset($_POST['id']) ? absint($_POST['id']) : 0;
         $type = isset($_POST['type']) ? sanitize_text_field($_POST['type']) : '';
-        $meta_title = isset($_POST['meta_title']) ? MDH_Helpers::sanitize_title($_POST['meta_title']) : '';
-        $meta_description = isset($_POST['meta_description']) ? MDH_Helpers::sanitize_description($_POST['meta_description']) : '';
+        $meta_title = isset($_POST['meta_title']) ? MDH_Helpers::sanitize_title(wp_unslash($_POST['meta_title'])) : '';
+        $meta_description = isset($_POST['meta_description']) ? MDH_Helpers::sanitize_description(wp_unslash($_POST['meta_description'])) : '';
         $noindex = isset($_POST['noindex']) && $_POST['noindex'] == '1' ? '1' : '';
         $nofollow = isset($_POST['nofollow']) && $_POST['nofollow'] == '1' ? '1' : '';
         

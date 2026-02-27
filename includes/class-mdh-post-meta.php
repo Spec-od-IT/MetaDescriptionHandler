@@ -37,7 +37,7 @@ class MDH_Post_Meta {
         foreach ($enabled_post_types as $post_type) {
             add_meta_box(
                 'mdh_meta_box',
-                'Meta Tytuł i Opis',
+                __('Meta Tytuł i Opis', 'meta-description-handler'),
                 array($this, 'render_meta_box'),
                 $post_type,
                 'normal',
@@ -65,7 +65,7 @@ class MDH_Post_Meta {
         <div class="mdh-meta-box">
             <!-- Preview Section -->
             <div class="mdh-preview-section">
-                <h4>Podgląd w wyszukiwarce</h4>
+                <h4><?php esc_html_e('Podgląd w wyszukiwarce', 'meta-description-handler'); ?></h4>
                 <div class="mdh-serp-preview">
                     <div class="mdh-serp-title" id="mdh-preview-title"><?php echo esc_html($preview_title); ?></div>
                     <div class="mdh-serp-url"><?php echo esc_url($preview_url); ?></div>
@@ -76,7 +76,7 @@ class MDH_Post_Meta {
             <!-- Meta Title -->
             <div class="mdh-field-group">
                 <label for="mdh_meta_title">
-                    <strong>Meta Tytuł</strong>
+                    <strong><?php esc_html_e('Meta Tytuł', 'meta-description-handler'); ?></strong>
                 </label>
                 <input type="text" id="mdh_meta_title" name="mdh_meta_title" 
                        value="<?php echo esc_attr($meta_title); ?>" 
@@ -86,37 +86,37 @@ class MDH_Post_Meta {
                     <span class="mdh-char-count">0</span>/580px
                     <span class="mdh-char-status"></span>
                 </div>
-                <p class="description">Pozostaw puste, aby użyć tytułu wpisu z domyślnym formatem.</p>
+                <p class="description"><?php esc_html_e('Pozostaw puste, aby użyć tytułu wpisu z domyślnym formatem.', 'meta-description-handler'); ?></p>
             </div>
             
             <!-- Meta Description -->
             <div class="mdh-field-group">
                 <label for="mdh_meta_description">
-                    <strong>Meta Opis</strong>
+                    <strong><?php esc_html_e('Meta Opis', 'meta-description-handler'); ?></strong>
                 </label>
                 <textarea id="mdh_meta_description" name="mdh_meta_description" 
                           rows="3" class="widefat mdh-description-input"
-                          placeholder="Wpisz przekonujący opis..."><?php echo esc_textarea($meta_description); ?></textarea>
+                          placeholder="<?php esc_attr_e('Wpisz przekonujący opis...', 'meta-description-handler'); ?>"><?php echo esc_textarea($meta_description); ?></textarea>
                 <div class="mdh-char-counter" data-type="description">
                     <span class="mdh-char-count">0</span>/920px
                     <span class="mdh-char-status"></span>
                 </div>
-                <p class="description">Pozostaw puste, aby automatycznie wygenerować z treści wpisu.</p>
+                <p class="description"><?php esc_html_e('Pozostaw puste, aby automatycznie wygenerować z treści wpisu.', 'meta-description-handler'); ?></p>
             </div>
             
             <!-- Robots Settings -->
             <div class="mdh-field-group mdh-robots-section">
-                <strong>Widoczność w wyszukiwarkach</strong>
+                <strong><?php esc_html_e('Widoczność w wyszukiwarkach', 'meta-description-handler'); ?></strong>
                 <div class="mdh-checkbox-group">
                     <label>
                         <input type="checkbox" name="mdh_robots_noindex" value="1" <?php checked($robots_noindex, '1'); ?>>
-                        Nie indeksuj (noindex)
-                        <span class="description">(Zniechęć wyszukiwarki do indeksowania tej strony)</span>
+                        <?php esc_html_e('Nie indeksuj (noindex)', 'meta-description-handler'); ?>
+                        <span class="description"><?php esc_html_e('(Zniechęć wyszukiwarki do indeksowania tej strony)', 'meta-description-handler'); ?></span>
                     </label>
                     <label>
                         <input type="checkbox" name="mdh_robots_nofollow" value="1" <?php checked($robots_nofollow, '1'); ?>>
-                        Nie podążaj (nofollow)
-                        <span class="description">(Zniechęć wyszukiwarki do podążania za linkami na tej stronie)</span>
+                        <?php esc_html_e('Nie podążaj (nofollow)', 'meta-description-handler'); ?>
+                        <span class="description"><?php esc_html_e('(Zniechęć wyszukiwarki do podążania za linkami na tej stronie)', 'meta-description-handler'); ?></span>
                     </label>
                 </div>
             </div>
@@ -153,13 +153,13 @@ class MDH_Post_Meta {
         
         // Save meta title
         if (isset($_POST['mdh_meta_title'])) {
-            $meta_title = MDH_Helpers::sanitize_title($_POST['mdh_meta_title']);
+            $meta_title = MDH_Helpers::sanitize_title(wp_unslash($_POST['mdh_meta_title']));
             update_post_meta($post_id, '_mdh_meta_title', $meta_title);
         }
-        
+
         // Save meta description
         if (isset($_POST['mdh_meta_description'])) {
-            $meta_description = MDH_Helpers::sanitize_description($_POST['mdh_meta_description']);
+            $meta_description = MDH_Helpers::sanitize_description(wp_unslash($_POST['mdh_meta_description']));
             update_post_meta($post_id, '_mdh_meta_description', $meta_description);
         }
         
@@ -177,28 +177,33 @@ class MDH_Post_Meta {
     public function add_post_columns() {
         $settings = MDH_Helpers::get_settings();
         $enabled_post_types = $settings['enabled_post_types'] ?? array('post', 'page');
-        
+
         foreach ($enabled_post_types as $post_type) {
             add_filter("manage_{$post_type}_posts_columns", array($this, 'add_columns'));
             add_action("manage_{$post_type}_posts_custom_column", array($this, 'render_columns'), 10, 2);
         }
     }
-    
+
     /**
-     * Add meta columns
+     * Add meta columns and remove cluttering default columns
      */
     public function add_columns($columns) {
+        // Remove columns that take too much space
+        unset($columns['author']);
+        unset($columns['categories']);
+        unset($columns['tags']);
+
         $new_columns = array();
-        
+
         foreach ($columns as $key => $value) {
             $new_columns[$key] = $value;
-            
+
             if ($key === 'title') {
-                $new_columns['mdh_meta_title'] = 'Meta Tytuł';
-                $new_columns['mdh_meta_description'] = 'Meta Opis';
+                $new_columns['mdh_meta_title'] = __('Meta Tytuł', 'meta-description-handler');
+                $new_columns['mdh_meta_description'] = __('Meta Opis', 'meta-description-handler');
             }
         }
-        
+
         return $new_columns;
     }
     

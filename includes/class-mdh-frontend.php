@@ -8,26 +8,49 @@ if (!defined('ABSPATH')) {
 }
 
 class MDH_Frontend {
-    
+
     private static $instance = null;
-    
+
+    /**
+     * Whether frontend output is active (not disabled by SEO conflict detection)
+     */
+    private $is_active = true;
+
     public static function get_instance() {
         if (null === self::$instance) {
             self::$instance = new self();
         }
         return self::$instance;
     }
-    
+
     private function __construct() {
+        // Check for SEO plugin conflicts before registering any frontend hooks
+        if ( MDH_Helpers::is_frontend_disabled() ) {
+            $this->is_active = false;
+            return;
+        }
+
         // Output meta tags in head
         add_action('wp_head', array($this, 'output_meta_tags'), 1);
-        
+
         // Filter document title
         add_filter('pre_get_document_title', array($this, 'filter_document_title'), 15);
         add_filter('document_title_parts', array($this, 'filter_document_title_parts'), 15);
-        
+
         // Remove default WordPress meta description if exists
         remove_action('wp_head', 'wp_output_meta_tags');
+
+        // Remove core canonical - we handle it for all page types
+        remove_action('wp_head', 'rel_canonical');
+    }
+
+    /**
+     * Check if frontend output is currently active
+     *
+     * @return bool
+     */
+    public function is_active() {
+        return $this->is_active;
     }
     
     /**
@@ -36,7 +59,13 @@ class MDH_Frontend {
     public function output_meta_tags() {
         $description = $this->get_meta_description();
         $robots = $this->get_robots_meta();
-        
+        $canonical = $this->get_canonical_url();
+
+        // Output canonical URL
+        if (!empty($canonical)) {
+            echo '<link rel="canonical" href="' . esc_url($canonical) . '" />' . "\n";
+        }
+
         // Output meta description
         if (!empty($description)) {
             echo '<meta name="description" content="' . esc_attr($description) . '" />' . "\n";
@@ -129,14 +158,22 @@ class MDH_Frontend {
         } elseif (is_date()) {
             // Date archive
             $archive_type = 'yearly';
+            $archive_title = get_the_date('Y');
             if (is_month()) {
                 $archive_type = 'monthly';
+                $archive_title = get_the_date('F Y');
             } elseif (is_day()) {
                 $archive_type = 'daily';
+                $archive_title = get_the_date();
             }
-            
+
             $archive_settings = $settings['archive_settings'][$archive_type] ?? array();
             $description = $archive_settings['description'] ?? '';
+            if (!empty($description)) {
+                $description = MDH_Helpers::parse_template($description, array(
+                    'archive_title' => $archive_title,
+                ));
+            }
         } elseif (is_search()) {
             // Search results - no description typically needed
             $description = '';
@@ -266,7 +303,7 @@ class MDH_Frontend {
             // Add pagination
             $paged = get_query_var('paged');
             if ($paged > 1) {
-                $title .= ' ' . MDH_Helpers::get_separator() . ' ' . sprintf('Strona %d', $paged);
+                $title .= ' ' . MDH_Helpers::get_separator() . ' ' . sprintf(__('Strona %d', 'meta-description-handler'), $paged);
             }
         } elseif (is_post_type_archive()) {
             // Post type archive
@@ -289,14 +326,14 @@ class MDH_Frontend {
             // Add pagination
             $paged = get_query_var('paged');
             if ($paged > 1) {
-                $title .= ' ' . MDH_Helpers::get_separator() . ' ' . sprintf('Strona %d', $paged);
+                $title .= ' ' . MDH_Helpers::get_separator() . ' ' . sprintf(__('Strona %d', 'meta-description-handler'), $paged);
             }
         } elseif (is_author()) {
             // Author archive
             $archive_settings = $settings['archive_settings']['author'] ?? array();
             $author = get_queried_object();
             
-            $format = $archive_settings['title_format'] ?? 'Wpisy autora %author_name% %separator% %site_title%';
+            $format = $archive_settings['title_format'] ?? __('Wpisy autora %author_name% %separator% %site_title%', 'meta-description-handler');
             $title = MDH_Helpers::parse_template($format, array(
                 'author_name' => $author->display_name,
             ));
@@ -323,13 +360,13 @@ class MDH_Frontend {
             ));
         } elseif (is_search()) {
             // Search results
-            $format = $settings['default_search_title_format'] ?? 'Search Results for "%search_query%" %separator% %site_title%';
+            $format = $settings['default_search_title_format'] ?? __('Wyniki wyszukiwania dla "%search_query%" %separator% %site_title%', 'meta-description-handler');
             $title = MDH_Helpers::parse_template($format, array(
                 'search_query' => get_search_query(),
             ));
         } elseif (is_404()) {
             // 404 page
-            $format = $settings['default_404_title'] ?? 'Page Not Found %separator% %site_title%';
+            $format = $settings['default_404_title'] ?? __('Strona nie została znaleziona %separator% %site_title%', 'meta-description-handler');
             $title = MDH_Helpers::parse_template($format);
         }
         
@@ -342,7 +379,7 @@ class MDH_Frontend {
     public function output_og_tags() {
         $title = $this->get_custom_title();
         $description = $this->get_meta_description();
-        $url = $this->get_current_url();
+        $url = $this->get_canonical_url();
         $image = $this->get_og_image();
         
         echo "\n<!-- Meta Description Handler - Open Graph Tags -->\n";
@@ -355,7 +392,9 @@ class MDH_Frontend {
             echo '<meta property="og:description" content="' . esc_attr($description) . '" />' . "\n";
         }
         
-        echo '<meta property="og:url" content="' . esc_url($url) . '" />' . "\n";
+        if (!empty($url)) {
+            echo '<meta property="og:url" content="' . esc_url($url) . '" />' . "\n";
+        }
         echo '<meta property="og:site_name" content="' . esc_attr(get_bloginfo('name')) . '" />' . "\n";
         
         // OG Type
@@ -372,6 +411,12 @@ class MDH_Frontend {
         
         // Twitter Card tags
         echo '<meta name="twitter:card" content="summary_large_image" />' . "\n";
+
+        $settings = MDH_Helpers::get_settings();
+        $twitter_site = $settings['twitter_site'] ?? '';
+        if (!empty($twitter_site)) {
+            echo '<meta name="twitter:site" content="' . esc_attr($twitter_site) . '" />' . "\n";
+        }
         
         if (!empty($title)) {
             echo '<meta name="twitter:title" content="' . esc_attr($title) . '" />' . "\n";
@@ -389,18 +434,71 @@ class MDH_Frontend {
     }
     
     /**
-     * Get current page URL
+     * Get canonical URL for current page
      */
-    private function get_current_url() {
-        global $wp;
-        $url = home_url(add_query_arg(array(), $wp->request));
-        return trailingslashit($url);
+    public function get_canonical_url() {
+        $url = '';
+
+        if (is_front_page() || is_home()) {
+            $url = home_url('/');
+        } elseif (is_singular()) {
+            $url = wp_get_canonical_url();
+        } elseif (is_category() || is_tag() || is_tax()) {
+            $term = get_queried_object();
+            if ($term) {
+                $url = get_term_link($term);
+                if (is_wp_error($url)) {
+                    $url = '';
+                }
+            }
+        } elseif (is_post_type_archive()) {
+            $post_type = get_query_var('post_type');
+            if (is_array($post_type)) {
+                $post_type = reset($post_type);
+            }
+            $url = get_post_type_archive_link($post_type);
+        } elseif (is_author()) {
+            $author = get_queried_object();
+            if ($author) {
+                $url = get_author_posts_url($author->ID);
+            }
+        } elseif (is_year()) {
+            $url = get_year_link(get_query_var('year'));
+        } elseif (is_month()) {
+            $url = get_month_link(get_query_var('year'), get_query_var('monthnum'));
+        } elseif (is_day()) {
+            $url = get_day_link(get_query_var('year'), get_query_var('monthnum'), get_query_var('day'));
+        }
+
+        // No canonical for search and 404
+        if (is_search() || is_404()) {
+            return '';
+        }
+
+        if (!empty($url)) {
+            $url = trailingslashit($url);
+        }
+
+        // Handle archive pagination (non-singular)
+        if (!empty($url) && !is_singular()) {
+            $paged = get_query_var('paged');
+            if ($paged > 1) {
+                global $wp_rewrite;
+                if ($wp_rewrite->using_permalinks()) {
+                    $url = $url . 'page/' . $paged . '/';
+                } else {
+                    $url = add_query_arg('paged', $paged, $url);
+                }
+            }
+        }
+
+        return apply_filters('mdh_canonical_url', $url);
     }
     
     /**
      * Get Open Graph image
      */
-    private function get_og_image() {
+    public function get_og_image() {
         $image = '';
         
         if (is_singular()) {
@@ -417,7 +515,16 @@ class MDH_Frontend {
             }
         }
         
-        // Fallback to site logo or custom default
+        // Fallback to default OG image from settings
+        if (empty($image)) {
+            $settings = MDH_Helpers::get_settings();
+            $default_og = $settings['default_og_image'] ?? '';
+            if (!empty($default_og)) {
+                $image = $default_og;
+            }
+        }
+
+        // Fallback to site logo
         if (empty($image)) {
             $custom_logo_id = get_theme_mod('custom_logo');
             if ($custom_logo_id) {
