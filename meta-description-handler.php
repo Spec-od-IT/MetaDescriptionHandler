@@ -3,7 +3,7 @@
  * Plugin Name: Meta Description Handler
  * Plugin URI: https://github.com/Spec-od-IT/MetaDescriptionHandler
  * Description: A comprehensive plugin for managing meta titles and meta descriptions for all pages, posts, custom post types, taxonomies, and archives.
- * Version: 1.0.1
+ * Version: 1.1.0
  * Author: Spec od IT
  * Author URI: https://specodit.pl
  * License: GPL v2 or later
@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Define plugin constants
-define('MDH_VERSION', '1.0.1');
+define('MDH_VERSION', '1.1.0');
 define('MDH_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('MDH_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('MDH_PLUGIN_BASENAME', plugin_basename(__FILE__));
@@ -58,6 +58,7 @@ class MetaDescriptionHandler {
      */
     private function load_dependencies() {
         require_once MDH_PLUGIN_DIR . 'includes/class-mdh-helpers.php';
+        require_once MDH_PLUGIN_DIR . 'includes/class-mdh-resolver.php';
         require_once MDH_PLUGIN_DIR . 'includes/class-mdh-admin.php';
         require_once MDH_PLUGIN_DIR . 'includes/class-mdh-post-meta.php';
         require_once MDH_PLUGIN_DIR . 'includes/class-mdh-taxonomy-meta.php';
@@ -66,6 +67,9 @@ class MetaDescriptionHandler {
         require_once MDH_PLUGIN_DIR . 'includes/class-mdh-schema.php';
         require_once MDH_PLUGIN_DIR . 'includes/class-mdh-sitemap.php';
         require_once MDH_PLUGIN_DIR . 'includes/class-mdh-updater.php';
+        require_once MDH_PLUGIN_DIR . 'includes/class-mdh-headless.php';
+        require_once MDH_PLUGIN_DIR . 'includes/class-mdh-import.php';
+        require_once MDH_PLUGIN_DIR . 'includes/class-mdh-cli.php';
     }
     
     /**
@@ -117,6 +121,9 @@ class MetaDescriptionHandler {
 
         // Sitemap control (always active — filters WP built-in sitemap)
         MDH_Sitemap::get_instance();
+
+        // Headless: WPGraphQL + REST (rejestruje się tylko, gdy dane API jest dostępne)
+        MDH_Headless::get_instance();
     }
     
     /**

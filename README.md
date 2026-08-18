@@ -25,6 +25,14 @@ A comprehensive WordPress plugin for managing meta titles and meta descriptions 
 - **Open Graph Tags**: Automatic OG and Twitter Card tags
 - **Pagination Support**: Page numbers in archive titles
 
+### 🔌 Headless / API
+- **WPGraphQL**: `mdhSeo` field on every enabled post type and taxonomy
+- **REST API**: `mdh_seo` field on every enabled post type
+- **Context-free resolver**: `MDH_Resolver` resolves titles and descriptions for any post or
+  term outside the loop — the same code path the front end uses, so the API can never drift
+  from what `wp_head` outputs
+- **Yoast SEO import**: one-shot migration via WP-CLI, with a dry-run mode
+
 ## Installation
 
 1. Upload the `meta-description-handler` folder to `/wp-content/plugins/`
@@ -113,6 +121,98 @@ add_filter('mdh_og_image', function($image) {
 });
 ```
 
+## Headless Usage
+
+The plugin normally writes meta tags through `wp_head`. A decoupled front end (Astro, Next.js,
+Nuxt…) never renders `wp_head`, so the same values are also exposed through WPGraphQL and REST.
+
+### WPGraphQL
+
+Fields appear on every post type and taxonomy that is (a) enabled in **Meta Handler → General
+Settings** and (b) exposed to GraphQL (`show_in_graphql`).
+
+```graphql
+{
+  posts(first: 100) {
+    nodes {
+      slug
+      mdhSeo {
+        title
+        description
+        noindex
+        nofollow
+        ogImage
+      }
+    }
+  }
+}
+```
+
+### REST API
+
+```
+GET /wp-json/wp/v2/posts?_fields=slug,mdh_seo
+```
+
+### PHP
+
+```php
+MDH_Resolver::post_title( $post_id );
+MDH_Resolver::post_description( $post_id );
+MDH_Resolver::post_payload( $post_id );   // title, description, noindex, nofollow, ogImage
+MDH_Resolver::term_title( $term_id, $taxonomy );
+MDH_Resolver::term_description( $term_id, $taxonomy );
+```
+
+## Migrating from Yoast SEO
+
+Yoast stores its own replacement variables (`%%sep%%`, `%%sitename%%`) inside the saved text,
+so values cannot simply be copied — they are translated into MDH placeholders during import.
+Variables with no MDH equivalent are removed from the text and reported, because leaving them
+in would print them literally in the title.
+
+Always start with a dry run:
+
+```bash
+wp mdh import-yoast --dry-run --verbose
+```
+
+Then run it for real:
+
+```bash
+wp mdh import-yoast
+```
+
+| Flag | Meaning |
+| --- | --- |
+| `--dry-run` | Report only, write nothing |
+| `--overwrite` | Overwrite MDH fields that already have a value (off by default) |
+| `--post-types=<list>` | Comma-separated post types (default: types enabled in settings) |
+| `--skip-terms` | Skip taxonomy meta |
+| `--verbose` | Print every changed item |
+
+What is migrated:
+
+| Yoast | MDH |
+| --- | --- |
+| `_yoast_wpseo_title` | `_mdh_meta_title` |
+| `_yoast_wpseo_metadesc` | `_mdh_meta_description` |
+| `_yoast_wpseo_opengraph-image` | `_mdh_og_image` |
+| `_yoast_wpseo_meta-robots-noindex` = `1` | `_mdh_robots_noindex` |
+| `_yoast_wpseo_meta-robots-nofollow` = `1` | `_mdh_robots_nofollow` |
+| `wpseo_taxonomy_meta` (`wpseo_title`, `wpseo_desc`, `wpseo_noindex`) | term meta |
+
+Yoast is never modified — its data stays in place, so deactivating MDH rolls everything back.
+
+### Verifying the migration
+
+Dump the resolved values and compare them against a crawl of the live site before switching
+Yoast off:
+
+```bash
+wp mdh list --format=json > after-migration.json
+```
+
 ## File Structure
 
 ```
@@ -125,6 +225,10 @@ meta-description-handler/
 │   ├── class-mdh-post-meta.php     # Post/page meta boxes
 │   ├── class-mdh-taxonomy-meta.php # Taxonomy meta fields
 │   ├── class-mdh-frontend.php      # Frontend output
+│   ├── class-mdh-resolver.php      # Context-free title/description resolution
+│   ├── class-mdh-headless.php      # WPGraphQL + REST exposure
+│   ├── class-mdh-import.php        # Yoast SEO migration
+│   ├── class-mdh-cli.php           # WP-CLI commands
 │   └── class-mdh-helpers.php       # Helper functions
 ├── assets/
 │   ├── css/
@@ -141,6 +245,14 @@ meta-description-handler/
 - PHP 7.2 or higher
 
 ## Changelog
+
+### 1.1.0
+- WPGraphQL `mdhSeo` field on enabled post types and taxonomies
+- REST `mdh_seo` field on enabled post types
+- New `MDH_Resolver` — resolves meta outside the loop; `MDH_Frontend` now uses it, so the
+  frontend and the API can no longer disagree
+- Yoast SEO importer with variable translation and dry-run (`wp mdh import-yoast`)
+- `wp mdh list` for before/after comparison of resolved meta
 
 ### 1.0.0
 - Initial release

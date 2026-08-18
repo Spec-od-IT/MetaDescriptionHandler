@@ -96,45 +96,11 @@ class MDH_Frontend {
         } elseif (is_singular()) {
             // Single post/page/custom post type
             global $post;
-            $description = get_post_meta($post->ID, '_mdh_meta_description', true);
-            
-            if (empty($description)) {
-                // Get post type settings
-                $post_type = get_post_type();
-                $pt_settings = $settings['post_type_settings'][$post_type] ?? array();
-                
-                if (!empty($pt_settings['default_description'])) {
-                    $description = MDH_Helpers::parse_template($pt_settings['default_description'], array(
-                        'post_title' => get_the_title(),
-                        'post_excerpt' => get_the_excerpt(),
-                    ));
-                } else {
-                    // Auto-generate from excerpt or content
-                    if (has_excerpt()) {
-                        $description = get_the_excerpt();
-                    } else {
-                        $description = wp_strip_all_tags($post->post_content);
-                    }
-                }
-            }
+            $description = MDH_Resolver::post_description($post->ID);
         } elseif (is_category() || is_tag() || is_tax()) {
             // Taxonomy archive
             $term = get_queried_object();
-            $description = get_term_meta($term->term_id, '_mdh_meta_description', true);
-            
-            if (empty($description)) {
-                // Get taxonomy settings
-                $tax_settings = $settings['taxonomy_settings'][$term->taxonomy] ?? array();
-                
-                if (!empty($tax_settings['default_description'])) {
-                    $description = MDH_Helpers::parse_template($tax_settings['default_description'], array(
-                        'term_title' => $term->name,
-                        'term_description' => $term->description,
-                    ));
-                } else {
-                    $description = $term->description;
-                }
-            }
+            $description = MDH_Resolver::term_description($term->term_id, $term->taxonomy);
         } elseif (is_post_type_archive()) {
             // Post type archive
             $post_type = get_query_var('post_type');
@@ -271,34 +237,11 @@ class MDH_Frontend {
         } elseif (is_singular()) {
             // Single post/page/custom post type
             global $post;
-            $title = get_post_meta($post->ID, '_mdh_meta_title', true);
-            
-            if (empty($title)) {
-                // Get post type settings
-                $post_type = get_post_type();
-                $pt_settings = $settings['post_type_settings'][$post_type] ?? array();
-                
-                $format = $pt_settings['title_format'] ?? '%post_title% %separator% %site_title%';
-                $title = MDH_Helpers::parse_template($format, array(
-                    'post_title' => get_the_title(),
-                    'post_excerpt' => get_the_excerpt(),
-                ));
-            }
+            $title = MDH_Resolver::post_title($post->ID);
         } elseif (is_category() || is_tag() || is_tax()) {
             // Taxonomy archive
             $term = get_queried_object();
-            $title = get_term_meta($term->term_id, '_mdh_meta_title', true);
-            
-            if (empty($title)) {
-                // Get taxonomy settings
-                $tax_settings = $settings['taxonomy_settings'][$term->taxonomy] ?? array();
-                
-                $format = $tax_settings['title_format'] ?? '%term_title% %separator% %site_title%';
-                $title = MDH_Helpers::parse_template($format, array(
-                    'term_title' => $term->name,
-                    'term_description' => $term->description,
-                ));
-            }
+            $title = MDH_Resolver::term_title($term->term_id, $term->taxonomy);
             
             // Add pagination
             $paged = get_query_var('paged');
