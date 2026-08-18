@@ -32,6 +32,7 @@ A comprehensive WordPress plugin for managing meta titles and meta descriptions 
   term outside the loop — the same code path the front end uses, so the API can never drift
   from what `wp_head` outputs
 - **Yoast SEO import**: one-shot migration via WP-CLI, with a dry-run mode
+- **Optional auto-generation**: descriptions can be left empty instead of derived from content
 
 ## Installation
 
@@ -245,6 +246,13 @@ meta-description-handler/
 - PHP 7.2 or higher
 
 ## Changelog
+
+### 1.1.1
+- **General Settings → Auto-generated descriptions** — when off, content without its own
+  description gets no `<meta name="description">` at all instead of one stitched together from
+  the first paragraph. Matches how Yoast behaves with an empty description template, so
+  migrating from it no longer invents descriptions where there were none.
+- Content-derived descriptions now strip shortcodes, decode HTML entities and drop bare URLs
 
 ### 1.1.0
 - WPGraphQL `mdhSeo` field on enabled post types and taxonomies

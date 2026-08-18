@@ -178,6 +178,11 @@ class MDH_Admin {
                 : array();
         }
 
+        // Auto-generated descriptions — only process when the checkbox is on the page
+        if (isset($input['_page_has_autogenerate'])) {
+            $sanitized['autogenerate_description'] = !empty($input['autogenerate_description']);
+        }
+
         // Force frontend output (advanced) — only when on the page that has it
         if (isset($input['_page_has_force_output'])) {
             $sanitized['force_frontend_output'] = !empty($input['force_frontend_output']);
@@ -416,6 +421,7 @@ class MDH_Admin {
                 <input type="hidden" name="mdh_settings[_page_has_taxonomies]" value="1">
                 <input type="hidden" name="mdh_settings[_page_has_sitemap]" value="1">
                 <input type="hidden" name="mdh_settings[_page_has_force_output]" value="1">
+                <input type="hidden" name="mdh_settings[_page_has_autogenerate]" value="1">
 
                 <div class="mdh-tabs">
                     <nav class="mdh-tabs-nav">
@@ -436,6 +442,19 @@ class MDH_Admin {
                                         <input type="text" id="title_separator" name="mdh_settings[title_separator]"
                                                value="<?php echo esc_attr($settings['title_separator'] ?? '|'); ?>" class="regular-text">
                                         <p class="description"><?php esc_html_e('Znak(i) używane do rozdzielania części tytułu.', 'meta-description-handler'); ?></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        <?php esc_html_e('Opisy generowane automatycznie', 'meta-description-handler'); ?>
+                                    </th>
+                                    <td>
+                                        <label class="mdh-checkbox-label">
+                                            <input type="checkbox" name="mdh_settings[autogenerate_description]" value="1"
+                                                   <?php checked(!isset($settings['autogenerate_description']) || $settings['autogenerate_description']); ?>>
+                                            <?php esc_html_e('Gdy brak własnego opisu, użyj zajawki lub początku treści', 'meta-description-handler'); ?>
+                                        </label>
+                                        <p class="description"><?php esc_html_e('Wyłącz, jeśli wolisz brak znacznika opisu od opisu sklejonego z treści — wyszukiwarka dobierze wtedy własny fragment.', 'meta-description-handler'); ?></p>
                                     </td>
                                 </tr>
                             </table>

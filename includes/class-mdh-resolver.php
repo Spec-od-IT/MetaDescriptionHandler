@@ -79,10 +79,14 @@ class MDH_Resolver {
                     'post_title' => get_the_title($post),
                     'post_excerpt' => get_the_excerpt($post),
                 ));
-            } elseif (has_excerpt($post)) {
-                $description = get_the_excerpt($post);
-            } else {
-                $description = wp_strip_all_tags($post->post_content);
+            } elseif (self::autogenerate_enabled()) {
+                // Zajawka albo początek treści. Świadomie wyłączalne: pusty opis bywa lepszy
+                // niż sklejony z pierwszego akapitu — wyszukiwarka dobierze wtedy własny
+                // fragment pasujący do zapytania. Tak samo zachowuje się Yoast z pustym
+                // szablonem opisu, więc migracja z niego niczego nie psuje.
+                $description = has_excerpt($post)
+                    ? get_the_excerpt($post)
+                    : self::plain_text($post->post_content);
             }
         }
 
@@ -91,6 +95,38 @@ class MDH_Resolver {
         }
 
         return MDH_Helpers::truncate($description, 160, '');
+    }
+
+    /**
+     * Whether descriptions may be generated from the excerpt or content.
+     *
+     * @return bool
+     */
+    private static function autogenerate_enabled() {
+        $settings = MDH_Helpers::get_settings();
+
+        // Domyślnie włączone — brak klucza oznacza instalację sprzed tej opcji.
+        return !isset($settings['autogenerate_description']) || (bool) $settings['autogenerate_description'];
+    }
+
+    /**
+     * Turn post content into something usable as a meta description.
+     *
+     * Same `wp_strip_all_tags()` nie wystarcza: w treści zostają shortcode'y, encje HTML
+     * (`&nbsp;`) i adresy plików wstawione przez Elementora — wszystko to trafiłoby
+     * dosłownie do znacznika meta.
+     *
+     * @param string $content Raw post content.
+     * @return string
+     */
+    private static function plain_text($content) {
+        $content = strip_shortcodes((string) $content);
+        $content = wp_strip_all_tags($content);
+        $content = wp_specialchars_decode($content, ENT_QUOTES);
+        $content = html_entity_decode($content, ENT_QUOTES, 'UTF-8');
+        $content = preg_replace('#https?://\S+#u', '', $content);
+
+        return trim(preg_replace('/\s+/u', ' ', $content));
     }
 
     /**
