@@ -247,6 +247,11 @@ meta-description-handler/
 
 ## Changelog
 
+### 1.1.2
+- `%site_title%` and `%site_description%` now decode HTML entities. WordPress stores the site
+  name encoded (`Producent wyrob&oacute;w`); a browser expands that inside `<title>`, but a
+  headless front end receiving it through the API would print it literally.
+
 ### 1.1.1
 - **General Settings → Auto-generated descriptions** — when off, content without its own
   description gets no `<meta name="description">` at all instead of one stitched together from

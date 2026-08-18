@@ -49,8 +49,8 @@ class MDH_Helpers {
      */
     public static function parse_template($template, $context = array()) {
         $replacements = array(
-            '%site_title%' => get_bloginfo('name'),
-            '%site_description%' => get_bloginfo('description'),
+            '%site_title%' => self::decode(get_bloginfo('name')),
+            '%site_description%' => self::decode(get_bloginfo('description')),
             '%separator%' => self::get_separator(),
             '%current_date%' => date_i18n(get_option('date_format')),
             '%current_year%' => date('Y'),
@@ -85,6 +85,21 @@ class MDH_Helpers {
         return str_replace(array_keys($replacements), array_values($replacements), $template);
     }
     
+    /**
+     * Decode HTML entities coming from site options.
+     *
+     * WordPress trzyma nazwę i opis witryny w postaci zakodowanej (`Producent wyrob&oacute;w`).
+     * W znaczniku <title> przeglądarka rozwinie to sama, ale nagłówek nie jest jedynym
+     * odbiorcą — headless front dostaje tę wartość przez API i wypisze ją dosłownie.
+     * Rozwijamy encje u źródła, żeby oba wyjścia wyglądały tak samo.
+     *
+     * @param string $value Raw option value.
+     * @return string
+     */
+    public static function decode($value) {
+        return html_entity_decode((string) $value, ENT_QUOTES, get_bloginfo('charset') ?: 'UTF-8');
+    }
+
     /**
      * Truncate text to specified length
      */

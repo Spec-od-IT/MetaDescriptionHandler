@@ -3,7 +3,7 @@
  * Plugin Name: Meta Description Handler
  * Plugin URI: https://github.com/Spec-od-IT/MetaDescriptionHandler
  * Description: A comprehensive plugin for managing meta titles and meta descriptions for all pages, posts, custom post types, taxonomies, and archives.
- * Version: 1.1.1
+ * Version: 1.1.2
  * Author: Spec od IT
  * Author URI: https://specodit.pl
  * License: GPL v2 or later
@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Define plugin constants
-define('MDH_VERSION', '1.1.1');
+define('MDH_VERSION', '1.1.2');
 define('MDH_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('MDH_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('MDH_PLUGIN_BASENAME', plugin_basename(__FILE__));
